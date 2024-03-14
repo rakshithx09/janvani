@@ -4,7 +4,6 @@ import "./globals.css";
 import { Box } from "@mui/material";
 import { Avatar } from '@mui/material';
 import Link from "next/link";
-import { Avatar } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
