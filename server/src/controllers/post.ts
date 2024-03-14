@@ -15,7 +15,7 @@ interface Post {
 }
 
 //create post
-export const createPost = async(req:Request, res:Response, next)=>{
+export const createPost = async(req:Request, res:Response)=>{
     try {
         const {title, description, image, complaintType, department, } : Post= req.body
         if(!title){
@@ -48,11 +48,11 @@ export const createPost = async(req:Request, res:Response, next)=>{
 
 
 //add comment
-export const addComment = async (req:Request, res:Response, next:NextFunction)=>{
+export const addComment = async (req:Request, res:Response, )=>{
     try {
-        const {description}:{description:string} = req.body
+        const {description, userId}:{description:string, userId:string} = req.body
         const {postId} = req.params
-        const userId = req.user?.userId
+        // const userId = req.user?.userId
         if(!userId){
             return res.status(400).json({
                 message:"userId not found"
@@ -79,9 +79,9 @@ export const addComment = async (req:Request, res:Response, next:NextFunction)=>
 //edit post
 export const editPost = async(req:Request, res:Response)=>{
     try {
-        const {title, description, image, complaintType, department, } : Post= req.body
+        const {title, description, image, complaintType, department, userId} : Post= req.body
         const {postId} = req.params
-        const userId = req.user?.userId
+        // const userId = req.user?.userId
         if(!userId){
             return res.status(400).json({
                 message:"userId not found"
@@ -127,9 +127,9 @@ export const editPost = async(req:Request, res:Response)=>{
 //edit comment
 export const editComment = async(req:Request, res:Response)=>{
     try {
-        const { description } : {description:string}= req.body
+        const { description, userId } : {description:string, userId:string}= req.body
         const {commentId} = req.params
-        const userId = req.user?.userId
+        // const userId = req.user?.userId
         if(!userId){
             return res.status(400).json({
                 message:"userId not found"
