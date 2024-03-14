@@ -3,4 +3,6 @@ import { createPost } from '../controllers/post'
 
 const router = express.Router()
 
-// router.route("/createpost", createPost)
+router.route("/createpost").post(createPost)
+
+export default router
