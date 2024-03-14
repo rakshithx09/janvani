@@ -63,25 +63,41 @@ const Profile = () => {
 
                     </Box>
                     <Box sx={{
-                            bgcolor: '#969696',
-                            borderRadius: '18px',
-                            padding: '0.5rem 1rem',
-                            width:'80%',
-                            margin:'auto'
-                        }}>
-                            <Typography variant='body2'>Occupation</Typography>
-                        </Box>
+                        bgcolor: '#969696',
+                        borderRadius: '18px',
+                        padding: '0.5rem 1rem',
+                        width: '80%',
+                        margin: 'auto'
+                    }}>
+                        <Typography variant='body2'>Occupation</Typography>
+                    </Box>
                 </Box>
                 <Box sx={{
                     width: '50%',
                     borderLeft: '2px solid black',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap:'1rem',
+                    alignItems:'center'
+                }}> <Box sx={{
+                    height: '11rem',  /* outer circle dimension */
+                    width: '11rem',
+                    borderRadius: '50%',
                     display:'flex',
-                    flexDirection:'column',
-                }}> <Avatar sx={{/* 
+                    justifyContent:'center',
+                    alignItems:'center',
+                    
                     bgcolor:'#969696',
-                    height:'35%',
-                    width:'35%', */
-                }} alt="Cindy Baker" src="/map_sheildgold.svg" /></Box>
+                }}>
+                        <Avatar sx={{
+                            height:'9rem', /* inner circle dimension */
+                            width:'9rem'
+                        }} alt="Cindy Baker" src="/map_sheildgold.svg" />
+                    </Box>
+                    <Typography variant='h4'>Gold III</Typography>
+                    <Typography variant='h5'>Number of issues reported : 50</Typography>
+                    <Typography variant='h5'>Number of issues solved : 50</Typography>
+                </Box>
             </Box>
         </main>
     )
