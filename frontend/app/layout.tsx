@@ -39,8 +39,9 @@ export default function RootLayout({
             marginBottom: "4rem",
             marginLeft: "10rem",
             marginRight: "10rem",
-            bgcolor: "rgba(134,148,188,0.4)",
+            bgcolor: "white", //rgba(134,148,188,0.4)",
             borderRadius: "55px",
+            boxShadow: "3px 4px rgba(0, 0, 0, 0.2)",
           }}
         >
           <Box>
@@ -61,10 +62,12 @@ export default function RootLayout({
               <Box
                 sx={{
                   //border: "2px solid black",
-                  background: "white",
+
                   borderRadius: "50px",
                   padding: "1rem",
-                  //boxShadow: "2px 4px black",
+                  boxShadow: "2px 4px rgba(0, 0, 0, 0.2) ",
+                  background:
+                    "linear-gradient(to right, rgba(74, 179, 247, 0.3), rgba(130, 204, 255, 0.3), rgba(184, 195, 201, 0.3))",
                   marginTop: "4px",
                   overflowX: "auto",
                   animation: "scrollAnimation 10s linear infinite",
@@ -89,12 +92,110 @@ export default function RootLayout({
         </Box>
         <Box
           sx={{
-            background: "rgba(134,148,188,0.4)",
+            background: "white",
             borderRadius: "50px",
             display: "flex",
+            flexDirection: "column", // Stack boxes vertically
+            alignItems: "center", // Center boxes horizontally
+            justifyContent: "center", // Center boxes vertically
+            boxShadow: "2px 4px rgba(0, 0, 0, 0.2)",
+            gap: "2rem",
           }}
-          className="h-[60%] w-[3rem]   border-black border-2 fixed left-[4rem] top-1/2 transform -translate-y-1/2 "
-        ></Box>
+          className="h-[60%] w-[6rem] fixed left-[4rem] top-1/2 transform -translate-y-1/2"
+        >
+          {/* First inner Box */}
+          <Box
+            sx={{
+              width: "70px",
+              height: "70px",
+              backgroundColor: "#3E3636",
+              marginBottom: "10px", // Add margin between boxes
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <a href="#">
+              <img
+                src="finance.svg"
+                alt="tick"
+                style={{ width: "50px", height: "40px" }}
+              />
+            </a>
+          </Box>
+
+          {/* Second inner Box */}
+          <Box
+            sx={{
+              width: "70px",
+              height: "70px",
+              backgroundColor: "#3E3636",
+              marginBottom: "10px", // Add margin between boxes
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <a href="#">
+              <img
+                src="vector.svg"
+                alt="tick"
+                style={{ width: "30px", height: "30px" }}
+              />
+            </a>
+          </Box>
+
+          {/* Third inner Box */}
+          <Box
+            sx={{
+              width: "70px",
+              height: "70px",
+              backgroundColor: "#3E3636",
+              marginBottom: "10px", // Add margin between boxes
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <a href="#">
+              <img
+                src="pins-53 1.svg"
+                alt="tick"
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  marginLeft: "22px",
+                  marginBottom: "10px",
+                }}
+              />
+            </a>
+          </Box>
+
+          {/* Fourth inner Box */}
+          <Box
+            sx={{
+              width: "70px",
+              height: "70px",
+              backgroundColor: "#3E3636",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <a href="#">
+              <img
+                src="mdi_tick-outline.svg"
+                alt="tick"
+                style={{ width: "30px", height: "30px" }}
+              />
+            </a>
+          </Box>
+        </Box>
+
         <section className="ml-[12rem] py-[2rem] w-[80%] flex flex-col gap-8">
           {children}
         </section>
