@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -7,8 +8,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import Comments from "./Comments";
 
 const Issue = () => {
+  const [isCommentsClicked, setIsCommentsClicked] = useState(false);
   return (
     <Card
       sx={{
@@ -38,8 +41,12 @@ const Issue = () => {
             display: "flex",
             flexDirection: "column",
             gap: "0.5rem",
+            height:'100%',
+            position:'relative'
           }}
         >
+          {!isCommentsClicked ? 
+          <>
           <Box className="flex gap-2 ml-auto">
             <Chip label="Track Progress" color="primary" variant="outlined" />
             <Chip label="Status" color="success" variant="outlined"></Chip>
@@ -81,8 +88,14 @@ const Issue = () => {
           <Stack direction="row" spacing={1.5}>
             <img src="/arrowup.svg" alt="arrow" />
             <img src="/arrowdown.svg" alt="arrow" />
-            <img src="/comment.svg" alt="arrow" />
+            <img  className="cursor-pointer" onClick={()=>{setIsCommentsClicked(true)}} src="/comment.svg" alt="arrow" />
           </Stack>
+          </>  
+          :
+          <Comments  setIsCommentsClicked={setIsCommentsClicked} />
+        
+        }
+          
         </CardContent>
       </Box>
     </Card>

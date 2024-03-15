@@ -108,7 +108,7 @@ export default function RootLayout({
             justifyContent: "center",
           }}
         >
-          <Link href="#">
+          <Link href="/">
             <img
               src="finance.svg"
               alt="tick"
