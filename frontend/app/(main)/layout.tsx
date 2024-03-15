@@ -154,7 +154,7 @@ export default function RootLayout({
             justifyContent: "center",
           }}
         >
-          <a href="#">
+          <a href="/map">
             <img
               src="pins-53 1.svg"
               alt="tick"

@@ -46,9 +46,6 @@ export const createPost = async(req:Request, res:Response)=>{
     }
 }
 
-
-
-
 //edit post
 export const editPost = async(req:Request, res:Response)=>{
     try {
