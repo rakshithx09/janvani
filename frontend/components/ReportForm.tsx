@@ -1,30 +1,45 @@
 "use client"
-import  { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Box,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
+    Card,
+    CardContent,
+    CardMedia,
+    Typography,
+    Box,
+    TextField,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    Button,
 } from "@mui/material";
 import { UploadButton } from "../utils/uploadthing";
 
-interface Department {id:string, name:string, scope:string, password:string}
+interface Department { id: string, name: string, scope: string, password: string }
 
 const ReportForm = () => {
 
+    const [latitude, setLatitude] = useState<number | null>(null);
+    const [longitude, setLongitude] = useState<number | null>(null);
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                setLatitude(position.coords.latitude);
+                setLongitude(position.coords.longitude);
+            }, (error) => {
+                console.error('Error getting geolocation:', error);
+            });
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    }, []);
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [landmark, setLandmark] = useState('');
     const [department, setDepartment] = useState('');
     const [category, setCategory] = useState('');
-    const [url, setUrl] = useState('');
+    const [url, setUrl] = useState('/sampleIssue.jpg');
 
     const [depList, setDepList] = useState<Department[]>([]);
 
@@ -38,32 +53,31 @@ const ReportForm = () => {
             })
     }, [])
     const handleSubmit = async () => {
-        const data = {
-            title,
-            description,
-            image: url,
-            complaintType: category,
-            departmentId: department,
-            userId: 1,
-        }
         await fetch("http://localhost:4000/post/createpost/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({
+                title,
+                description,
+                image: url,
+                complaintType: category,
+                departmentId: department,
+                userId: 1,
+                latitude,
+                longitude
+            })
         }).then(async (res) => {
             alert("sucess")
-            console.log(res)
             if (!res.ok) {
-                const error = data;
-                return Promise.reject(error)
+                return Promise.reject()
             }
-
         }).catch((err) => {
             console.log(err)
         })
     };
+
     return (
         <Card
             sx={{
@@ -77,7 +91,7 @@ const ReportForm = () => {
             <CardMedia
                 component="img"
                 sx={{ width: "50%", borderRadius: "18px 0 0 18px" }}
-                image="/sampleIssue.jpg"
+                image={url}
                 alt="Issue image"
             />
             <Box
@@ -113,16 +127,6 @@ const ReportForm = () => {
                             onChange={(event) => {
                                 setDescription(event.target.value);
                             }} />
-                        <TextField
-                            id="landmark"
-                            label="Landmark"
-                            variant="outlined"
-                            required
-                            value={landmark}
-                            onChange={(event) => {
-                                setLandmark(event.target.value);
-                            }}
-                        />
                         <FormControl variant="outlined" required>
                             <InputLabel id="department-label">Department</InputLabel>
                             <Select
@@ -149,15 +153,8 @@ const ReportForm = () => {
                                 <MenuItem value="individual">individual</MenuItem>
                             </Select>
                         </FormControl>
-                        <input
-                            accept="image/*"
-                            style={{ display: "none" }}
-                            id="raised-button-file"
-                            multiple
-                            type="file"
-                        />
-                        <label htmlFor="raised-button-file">
-                            <UploadButton endpoint="imageUploader"
+                        <label htmlFor="raised-button-file" className="bg-white">
+                            <UploadButton endpoint="imageUploader" className="bg-white"
                                 onClientUploadComplete={(res) => {
                                     setUrl(res[0].url);
                                 }}
@@ -168,8 +165,7 @@ const ReportForm = () => {
                         <Button
                             variant="contained"
                             type="submit"
-
-                            sx={{ backgroundColor: "#007bff", color: "white" }}
+                            className="text-black hover:text-white"
                         >
                             Submit
                         </Button>
