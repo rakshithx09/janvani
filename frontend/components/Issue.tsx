@@ -24,6 +24,8 @@ const Issue = ({ post }: { post: Post }) => {
   const [isCommentsClicked, setIsCommentsClicked] = useState(false);
   const [comments, setComments] = useState<CommentType[]>();
 
+  
+
   const handleUpVote = async () => {
     const data = {
       postId: post.id,
