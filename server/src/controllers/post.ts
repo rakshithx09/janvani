@@ -173,6 +173,14 @@ export const getvotes= async(req:Request, res:Response)=>{
 
 } 
 
+//get posts by dept
+export const getPostsBydept = async(req:Request, res:Response)=>{
+    const {deptId}= req.params
+    const posts= await db.select().from(postTable).where(eq(postTable.departmentId, Number(deptId)))
+
+    return res.status(200).json(posts)
+}
+
 // updatescopes
 export const updateScope = async()=>{
     const posts = await db.select().from(postTable)

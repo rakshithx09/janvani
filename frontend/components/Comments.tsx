@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { Box, Button, TextField, Avatar } from "@mui/material";
@@ -36,8 +37,10 @@ const Comments: React.FC<Props> = ({ postId,comments ,setIsCommentsClicked }) =>
         })
     }).then(async (res) => {
         alert("sucess")
+        const data= await res.json()
+        window.location.reload()
         if (!res.ok) {
-            return Promise.reject()
+            return Promise.reject(data)
         }
     }).catch((err) => {
         console.log(err)
