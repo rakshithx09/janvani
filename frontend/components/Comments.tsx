@@ -2,13 +2,18 @@ import React from "react";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { Box, Button, TextField } from "@mui/material";
 
+import { Comment } from "./Issue";
+
 interface Props {
   setIsCommentsClicked: SetIsCommentsClicked;
 }
-
+interface Props {
+  comments: Comment[] | undefined; // An array of Comment objects
+  setIsCommentsClicked: (newValue: boolean) => void;
+}
 type SetIsCommentsClicked = (newValue: boolean) => void;
 
-const Comments: React.FC<Props> = ({ setIsCommentsClicked }) => {
+const Comments: React.FC<Props> = ({ comments ,setIsCommentsClicked }) => {
   return (
     <>
       <div className="flex items-center gap-4 mb-2">

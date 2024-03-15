@@ -20,8 +20,6 @@ const ReportForm = () => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
     const [landmark, setLandmark] = useState('');
     const [department, setDepartment] = useState('');
     const [group, setGroup] = useState('');

@@ -1,10 +1,10 @@
 "use client"
 import Image from "next/image";
 import Issue from "../../components/Issue";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
-interface Post {
+export interface Post {
   id: number;
   title: string;
   description: string;
@@ -16,14 +16,16 @@ interface Post {
 }
 
 export default function Home() {
+  const [posts,setPosts]=useState<Post[]>();
   useEffect(() => {
     async function test() {
       try {
         const res = await fetch(`http://localhost:4000/post/getallposts/1`,{
           "method":"GET"
         });
-        const postData = await res.json() as Post;
+        const postData = await res.json() as Post[];
         console.log(postData);
+        setPosts(postData);
       } catch (error) {
         console.log(error);
       }
@@ -33,9 +35,10 @@ export default function Home() {
     test();
   }, [])
   return (
-    <><Issue ></Issue>
-      <Issue></Issue>
-      <Issue></Issue>
+    <>
+    {posts && posts.map((post)=>{
+      <Issue post={post} />
+    })}
     </>
 
 
