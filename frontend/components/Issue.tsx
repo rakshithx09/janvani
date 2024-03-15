@@ -12,7 +12,7 @@ import Comments from "./Comments";
 
 import { Post } from "@/app/(main)/page";
 
-export interface Comment {
+export interface CommentType {
   id: number;
   userId: number;
   postId: number;
@@ -22,7 +22,7 @@ export interface Comment {
 
 const Issue = ({ post }: { post: Post }) => {
   const [isCommentsClicked, setIsCommentsClicked] = useState(false);
-  const [comments, setComments] = useState<Comment[]>();
+  const [comments, setComments] = useState<CommentType[]>();
 
   const handleUpVote = async () => {
     const data = {
@@ -78,7 +78,7 @@ const Issue = ({ post }: { post: Post }) => {
             method: "GET",
           }
         );
-        const commentData = (await res.json()) as Comment[];
+        const commentData = (await res.json()) as CommentType[];
         console.log(commentData);
         setComments(commentData);
       } catch (error) {
@@ -181,6 +181,7 @@ const Issue = ({ post }: { post: Post }) => {
             </>
           ) : (
             <Comments
+            postId={post.id}
               comments={comments}
               setIsCommentsClicked={setIsCommentsClicked}
             />

@@ -36,7 +36,7 @@ export default function Home() {
   }, [])
   return (
     <>
-      {posts && posts.map((post) => <Issue post={post} />)}
+      {posts && posts.map((post) => <Issue key={post.id} post={post} />)}
     </>
 
 
