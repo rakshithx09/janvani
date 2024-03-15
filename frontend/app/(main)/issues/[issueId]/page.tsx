@@ -18,28 +18,16 @@ interface Post {
     createdAt: number;
 }
 
-/* 
 
-export async function getServerSideProps({ params }: { params: { issueId: string } }) {
-
-    const { issueId } = params;
-    const res = await fetch(`https://api.example.com/posts/${issueId}`);
-    const postData = await res.json() as Post;
-
-    const commentsResponse = await fetch(`https://api.example.com/posts/${issueId}`);
-    const comments = await commentsResponse.json() as Post;
-
-    return { props: { postData, comments } };
-} */
 
 export default function Page({ postData, comments }: { postData: Post, comments: { userId: string, content: string }[] }) {
     const {issueId}=useParams()
     useEffect(()=>{
         async function test() {
-    const res = await fetch(`https://api.example.com/posts/${issueId}`);
+    const res = await fetch(`https://api.example.com/posts/getAllPosts`);
     const postData = await res.json() as Post;
 
-    const commentsResponse = await fetch(`https://api.example.com/posts/${issueId}`);
+    const commentsResponse = await fetch(`https://api.example.com/comments/getAllComments`);
     const comments = await commentsResponse.json() as Post;
         }
         test();
