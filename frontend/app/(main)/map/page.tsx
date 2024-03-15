@@ -4,6 +4,8 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Post } from "../page";
 
 const postsData = [
   {
@@ -41,6 +43,23 @@ const postsData = [
 ];
 
 const Map: React.FC = () => {
+
+  const [posts, setPosts] = useState<Post[]>();
+  useEffect(() => {
+    async function test() {
+      try {
+        const res = await fetch(`http://localhost:4000/post/getallposts/1`, {
+          "method": "GET"
+        });
+        const postData = await res.json() as Post[];
+        setPosts(postData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    test();
+  }, [])
+  
   const customIcon = new L.Icon({
     iconUrl: "/marker-icon-2x.png",
     iconSize: [25, 41],
@@ -57,10 +76,7 @@ const Map: React.FC = () => {
         marginTop: "-2rem",
         boxShadow: "2px 4px rgba(0, 0, 0, 0.2)",
       }}
-      center={[
-        postsData[Math.floor(postsData.length / 2)].latitude,
-        postsData[Math.floor(postsData.length / 2)].longitude,
-      ]}
+      center={[18,74]}
       zoom={8}
       scrollWheelZoom={true}
     >
@@ -69,11 +85,11 @@ const Map: React.FC = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {postsData.map((post, index) => {
+      {posts && postsData.map((post, index) => {
         return (
           <Marker
             key={index}
-            position={[post.latitude, post.longitude]}
+            position={[Number(post.latitude),Number(post.longitude)]}
             icon={customIcon}
           >
             <Popup
@@ -83,7 +99,7 @@ const Map: React.FC = () => {
               <div className="w-fit h-[25rem] flex flex-col justify-between ">
                 <h1 className="text-lg font-bold">{post.title}</h1>
                 <Image
-                  src={post.image}
+                  src={"/logo-color.svg"}
                   alt={post.title}
                   width={200}
                   height={80}

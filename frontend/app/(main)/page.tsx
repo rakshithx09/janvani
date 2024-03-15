@@ -1,8 +1,6 @@
-"use client"
-import Image from "next/image";
+"use client";
 import Issue from "../../components/Issue";
 import { useEffect, useState } from "react";
-
 
 export interface Post {
   id: number;
@@ -13,6 +11,8 @@ export interface Post {
   department: 'engineering' | 'public health' | 'revenue' | 'town planning';
   userId: number;
   createdAt: number;
+  latitude:string;
+  longitude:string;
 }
 
 export default function Home() {
@@ -29,8 +29,6 @@ export default function Home() {
       } catch (error) {
         console.log(error);
       }
-
-
     }
     test();
   }, [])
@@ -38,7 +36,5 @@ export default function Home() {
     <>
       {posts && posts.map((post) => <Issue post={post} />)}
     </>
-
-
   );
 }
