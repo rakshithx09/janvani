@@ -3,9 +3,21 @@ import { integer, sqliteTable, text, uniqueIndex, primaryKey } from 'drizzle-orm
 
 export const userTable = sqliteTable('user', {
     id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
+    aadhaarNo:text("aadhaarNo").notNull().unique(),
+    dob:text("dob").notNull(),
+    gender:text('gender', { enum: ['M', 'F'] }).notNull(),
     name: text("name").notNull(),
+    phone:text("phone").notNull(),
     email: text("email").notNull().unique(),
     password: text("password").notNull(),
+    building: text("building"),
+    landmark: text("landmark"),
+    street: text("street"),
+    locality: text("locality"),
+    vtc: text("vtc"),
+    subdist: text("subdist"),
+    district: text("district"),
+    state: text("state"),
     pinCode:text("pincode").notNull(),
     joinedOn: integer('joined_on')
         .default(sql`CURRENT_TIMESTAMP`)
@@ -21,6 +33,7 @@ export const postTable = sqliteTable('post', {
     departmentId: integer("departmentId").references(() => departmentTable.id).notNull(),
     userId: integer("author_id").references(() => userTable.id).notNull(),
     scope:integer("scope").default(1),
+	status: integer('status', { mode: 'boolean' }),
     createdAt: integer('created_at')
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull()
@@ -39,7 +52,8 @@ export const commemtsTable = sqliteTable('Comment', {
 export const departmentTable = sqliteTable('department',{
     id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
     name:text("name").notNull(),
-    scope:integer("scope").notNull()
+    scope:integer("scope").notNull(),
+    password:text("password")
 })
 
 export const department_pincode = sqliteTable('dept_pin',{
@@ -53,7 +67,8 @@ export const department_pincode = sqliteTable('dept_pin',{
 
 export const voteTable = sqliteTable('vote',{
     userId: integer("user_id").references(() => userTable.id).notNull(),
-    postId: integer("postId").references(() => postTable.id).notNull(),    
+    postId: integer("postId").references(() => postTable.id).notNull(), 
+    choice:   integer('choice', { mode: 'boolean' }).default(true), 
 }, (table) => {
     return {
       pk: primaryKey({ columns: [table.userId, table.postId] }),

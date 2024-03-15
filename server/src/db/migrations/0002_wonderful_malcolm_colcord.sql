@@ -1,0 +1,1 @@
+ALTER TABLE department ADD `password` text;
