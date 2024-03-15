@@ -24,12 +24,6 @@ export const postTable = sqliteTable('post', {
         .notNull()
 });
 
-// export const tagsTable = sqliteTable('Tag', {
-//     id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
-//     tag: text("tag").notNull().unique(),
-//     recipeId: integer("recipe_id").references(() => recipeTable.id).notNull(),
-// });
-
 export const commemtsTable = sqliteTable('Comment', {
     id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
     userId: integer("user_id").references(() => userTable.id).notNull(),
