@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -41,61 +41,73 @@ const Issue = () => {
             display: "flex",
             flexDirection: "column",
             gap: "0.5rem",
-            height:'100%',
-            position:'relative'
+            height: "100%",
+            position: "relative",
           }}
         >
-          {!isCommentsClicked ? 
-          <>
-          <Box className="flex gap-2 ml-auto">
-            <Chip label="Track Progress" color="primary" variant="outlined" />
-            <Chip label="Status" color="success" variant="outlined"></Chip>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
-            <Avatar alt="Cindy Baker" src="/sampleAvatar.jpg" />
-            <Typography component="div" variant="h5">
-              Varshith Pawar
-            </Typography>
-          </Box>
+          {!isCommentsClicked ? (
+            <>
+              <Box className="flex gap-2 ml-auto">
+                <Chip
+                  label="Track Progress"
+                  color="primary"
+                  variant="outlined"
+                />
+                <Chip label="Status" color="success" variant="outlined"></Chip>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                }}
+              >
+                <Avatar alt="Cindy Baker" src="/sampleAvatar.jpg" />
+                <Typography component="div" variant="h5">
+                  Varshith Pawar
+                </Typography>
+              </Box>
 
-          <Typography
-            sx={{
-              maxHeight: "150px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-            variant="body1"
-            color="text.secondary"
-            component="div"
-          >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Necessitatibus nobis architecto alias rerum, est provident omnis
-            perspiciatis molestias veniam ducimus deleniti ad beatae? Dolores
-            optio porro quia nesciunt dicta error nam cupiditate doloribus
-            laudantium natus eum maxime quam tempore iusto fugit pariatur quae
-            nihil dolorem laboriosam quisquam, reiciendis cum quaerat!
-          </Typography>
-          <Stack direction="row" spacing={1.5}>
-            <Chip label="#tag" color="primary" variant="outlined" />
-            <Chip label="#tag" color="primary" variant="outlined" />
-          </Stack>
-          <Stack direction="row" spacing={1.5}>
-            <img src="/arrowup.svg" alt="arrow" />
-            <img src="/arrowdown.svg" alt="arrow" />
-            <img  className="cursor-pointer" onClick={()=>{setIsCommentsClicked(true)}} src="/comment.svg" alt="arrow" />
-          </Stack>
-          </>  
-          :
-          <Comments  setIsCommentsClicked={setIsCommentsClicked} />
-        
-        }
-          
+              <Typography
+                sx={{
+                  maxHeight: "150px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+                variant="body1"
+                color="text.secondary"
+                component="div"
+              >
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Necessitatibus nobis architecto alias rerum, est provident omnis
+                perspiciatis molestias veniam ducimus deleniti ad beatae?
+                Dolores optio porro quia nesciunt dicta error nam cupiditate
+                doloribus laudantium natus eum maxime quam tempore iusto fugit
+                pariatur quae nihil dolorem laboriosam quisquam, reiciendis cum
+                quaerat!
+              </Typography>
+              <Stack direction="row" spacing={1.5}>
+                <Chip label="#tag" color="primary" variant="outlined" />
+                <Chip label="#tag" color="primary" variant="outlined" />
+              </Stack>
+              <Stack direction="row" spacing={1.5}>
+                <img src="/arrowup.svg" alt="arrow" />
+                <img src="/arrowdown.svg" alt="arrow" />
+
+                <Chip
+                  label="Comments"
+                  color="primary"
+                  variant="outlined"
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setIsCommentsClicked(true);
+                  }}
+                />
+              </Stack>
+            </>
+          ) : (
+            <Comments setIsCommentsClicked={setIsCommentsClicked} />
+          )}
         </CardContent>
       </Box>
     </Card>
