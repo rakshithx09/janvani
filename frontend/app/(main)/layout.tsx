@@ -38,7 +38,7 @@ export default function RootLayout({
         <Box>
           <Avatar
             alt="Cindy Baker"
-            src="./public/frame.svg"
+            src="/frame.svg"
             sx={{
               width: "230px",
               borderRadius: "0",
