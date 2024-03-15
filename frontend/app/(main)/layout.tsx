@@ -108,13 +108,13 @@ export default function RootLayout({
             justifyContent: "center",
           }}
         >
-          <a href="#">
+          <Link href="#">
             <img
               src="finance.svg"
               alt="tick"
               style={{ width: "50px", height: "40px" }}
             />
-          </a>
+          </Link>
         </Box>
 
         {/* Second inner Box */}
@@ -130,13 +130,13 @@ export default function RootLayout({
             justifyContent: "center",
           }}
         >
-          <a href="#">
+          <Link href="/issues/new">
             <img
               src="vector.svg"
               alt="tick"
               style={{ width: "30px", height: "30px" }}
             />
-          </a>
+          </Link>
         </Box>
 
         {/* Third inner Box */}
@@ -188,7 +188,7 @@ export default function RootLayout({
         </Box>
       </Box>
 
-        {children}
+      {children}
     </section>
   );
 }

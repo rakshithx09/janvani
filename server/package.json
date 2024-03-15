@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "schema:gen": "drizzle-kit generate:sqlite --out src/db/migrations --schema src/db/schema.ts",
     "schema:migrate": "ts-node src/db/migrate",
+    "db:push": "drizzle-kit push:sqlite",
     "dev": "nodemon --watch './**/*.ts' --exec ts-node ./src/index.ts"
   },
   "keywords": [],

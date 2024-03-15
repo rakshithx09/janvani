@@ -1,11 +1,15 @@
 
-function page() {
-    
-    return (
-      <div>
-          <h1></h1>
-      </div>
-    )
-  }
-  
-  export default page
+import React from 'react'
+import ReportForm from '@/components/ReportForm'
+
+const newIssue = () => {
+  return (
+    <>
+       <ReportForm>
+        
+       </ReportForm>
+    </>
+  )
+}
+
+export default newIssue
