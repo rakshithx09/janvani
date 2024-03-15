@@ -7,5 +7,4 @@ router.route("/createpost").post(createPost)
 router.route("/getallposts/:userId").get(getAllPosts)
 router.route("/addvote").post(addvote)
 
-
 export default router

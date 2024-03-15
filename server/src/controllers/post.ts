@@ -11,13 +11,16 @@ interface Post {
     complaintType: 'association' | 'group' | 'individual';
     departmentId: number;
     userId: number;
+    latitude:string,
+    longitude:string,
     createdAt: number;
 }
 
 //create post
 export const createPost = async(req:Request, res:Response)=>{
+    console.log(req.body)
     try {
-        const {title, description, image, complaintType, departmentId} : Post= req.body
+        const {title, description, image, complaintType, departmentId,latitude,longitude} : Post= req.body
         if(!title){
             return res.status(400).json({
                 message:"Please provide all values"
@@ -31,12 +34,14 @@ export const createPost = async(req:Request, res:Response)=>{
         }
 
         const post = await db.insert(postTable).values({
-            title:title,
-            description:description,
-            image:image,
-            complaintType:complaintType,
+            title,
+            description,
+            image,
+            complaintType,
             departmentId:Number(departmentId),
-            userId:req.body.userId as number
+            userId:req.body.userId as number,
+            latitude,
+            longitude
             })
 
         res.status(201).json(post)
