@@ -1,6 +1,5 @@
 "use client"
-import React from "react";
-import { useState } from "react";
+import  { useEffect,useState } from "react";
 import {
     Card,
     CardContent,
@@ -16,26 +15,36 @@ import {
 } from "@mui/material";
 import { UploadButton } from "../utils/uploadthing";
 
+interface Department {id:string, name:string, scope:string, password:string}
+
 const ReportForm = () => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
     const [landmark, setLandmark] = useState('');
     const [department, setDepartment] = useState('');
-    const [group, setGroup] = useState('');
     const [category, setCategory] = useState('');
-    const [severity, setSeverity] = useState('');
-    const [url,setUrl]= useState("");   
-    const handleSubmit= async ()=>{
-        const data={
+    const [url, setUrl] = useState('');
+
+    const [depList, setDepList] = useState<Department[]>([]);
+
+    useEffect(() => {
+        fetch("http://localhost:4000/department/getalldepartments/")
+            .then(res => res.json())
+            .then(data => {
+                setDepList(data)
+            }).catch(err => {
+                console.log(err)
+            })
+    }, [])
+    const handleSubmit = async () => {
+        const data = {
             title,
             description,
-            image:url,
-            complaintType:category,
-            departmentId:department,
-            userId:1,
+            image: url,
+            complaintType: category,
+            departmentId: department,
+            userId: 1,
         }
         await fetch("http://localhost:4000/post/createpost/", {
             method: "POST",
@@ -43,7 +52,7 @@ const ReportForm = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(data)
-        }).then(async(res)=>{
+        }).then(async (res) => {
             alert("sucess")
             console.log(res)
             if (!res.ok) {
@@ -51,7 +60,7 @@ const ReportForm = () => {
                 return Promise.reject(error)
             }
 
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err)
         })
     };
@@ -110,7 +119,7 @@ const ReportForm = () => {
                             variant="outlined"
                             required
                             value={landmark}
-                            onChange={ (event) => {
+                            onChange={(event) => {
                                 setLandmark(event.target.value);
                             }}
                         />
@@ -125,18 +134,7 @@ const ReportForm = () => {
                                     setDepartment(event.target.value);
                                 }}
                             >
-                                <MenuItem value="department1">Department 1</MenuItem>
-                                <MenuItem value="department2">Department 2</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControl variant="outlined" required>
-                            <InputLabel id="group-label">Group</InputLabel>
-                            <Select labelId="group-label" id="group" value={group}
-                                onChange={(event) => {
-                                    setGroup(event.target.value);
-                                }} label="Group">
-                                <MenuItem value="group1">Group 1</MenuItem>
-                                <MenuItem value="group2">Group 2</MenuItem>
+                                {depList.map(dep => <MenuItem value={dep.id}>{dep.name}</MenuItem>)}
                             </Select>
                         </FormControl>
                         <FormControl variant="outlined" required>
@@ -146,18 +144,9 @@ const ReportForm = () => {
                                     setCategory(event.target.value);
                                 }}
                                 label="Category">
-                                <MenuItem value="category1">Category 1</MenuItem>
-                                <MenuItem value="category2">Category 2</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControl variant="outlined" required>
-                            <InputLabel id="severity-label">Severity</InputLabel>
-                            <Select labelId="severity-label" id="severity" value={severity}
-                                onChange={(event) => {
-                                    setSeverity(event.target.value);
-                                }} label="Severity">
-                                <MenuItem value="severity1">Severity 1</MenuItem>
-                                <MenuItem value="severity2">Severity 2</MenuItem>
+                                <MenuItem value="assosiation">assosiation</MenuItem>
+                                <MenuItem value="group">group</MenuItem>
+                                <MenuItem value="individual">individual</MenuItem>
                             </Select>
                         </FormControl>
                         <input
@@ -170,20 +159,16 @@ const ReportForm = () => {
                         <label htmlFor="raised-button-file">
                             <UploadButton endpoint="imageUploader"
                                 onClientUploadComplete={(res) => {
-                                    // Do something with the response
-                                    console.log("Files: ", res);
                                     setUrl(res[0].url);
-                                    alert("Upload Completed");
                                 }}
                                 onUploadError={(error: Error) => {
-                                    // Do something with the error.
                                     alert(`ERROR! ${error.message}`);
                                 }} />
                         </label>
                         <Button
                             variant="contained"
                             type="submit"
-                            
+
                             sx={{ backgroundColor: "#007bff", color: "white" }}
                         >
                             Submit
