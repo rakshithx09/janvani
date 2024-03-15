@@ -117,7 +117,7 @@ export const getAllPosts = async(req:Request, res:Response)=>{
 }
 
 // updatescopes
-export const updateScope = async(req:Request, res:Response)=>{
+export const updateScope = async()=>{
     const posts = await db.select().from(postTable)
 
     posts.map(async(item)=>{

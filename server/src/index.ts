@@ -6,6 +6,7 @@ import commentRouter from "./routes/commentRoutes"
 import cron from 'node-cron'
 import { createRouteHandler } from 'uploadthing/express'
 import { uploadRouter } from './uploadthing'
+import { updateScope } from './controllers/post'
 
 
 const app: Express = express()
@@ -26,7 +27,7 @@ app.use("api/v1/post/",postRouter)
 app.use("api/v1/comment/",commentRouter)
 
 cron.schedule('0 18 * * *', () => {
-    
+    updateScope()
     
 });
 
