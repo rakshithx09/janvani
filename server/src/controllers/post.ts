@@ -153,6 +153,26 @@ export const updateStatus = async(req:Request, res:Response)=>{
 
 }
 
+//get No of votes
+export const getvotes= async(req:Request, res:Response)=>{
+    const {postId}= req.params
+    let count=0;
+    const votes =await db.select().from(voteTable).where(eq(voteTable.postId, Number(postId)))
+    votes.forEach((item)=>{
+        if(item.choice===true){
+            count++;
+        }else{
+            count--;
+        }
+    })
+
+    res.status(200).json({
+        count
+    })
+
+
+} 
+
 // updatescopes
 export const updateScope = async()=>{
     const posts = await db.select().from(postTable)
