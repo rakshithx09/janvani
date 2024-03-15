@@ -1,6 +1,6 @@
 
 import {Request, Response } from "express"
-import aadhaarDetails from "../../data/aadhaar"
+/* import aadhaarDetails from "../../data/aadhaar"
 
 type Person = {
     uid: "111122223333";
@@ -44,10 +44,10 @@ export const getUser = async(req:Request, res:Response)=>{
         aadhaarNo:uId
     })
 }
-
+ */
 export const verifyUser = async(req:Request, res:Response)=>{
-    const {uId,otp}:{uId:string|null,otp:string|null}= req.body.uId;
-
+    const {uId,otp}:{uId:string|null,otp:string|null}= req.body;
+   
     if(!uId){
         return res.status(400).json({
             message:"missing feild user id"
@@ -60,14 +60,14 @@ export const verifyUser = async(req:Request, res:Response)=>{
         })
     }
 
-    const user = aadhaarDetails[uId]
-    if(!user){
-        return res.status(404).json({
-            message:"user not found"
-        })
-    }
+    // const user = aadhaarDetails[uId]
+    // if(!user){
+    //     return res.status(404).json({
+    //         message:"user not found"
+    //     })
+    // }
 
-    user["aadhaarNo"] = uId;
+    // user["aadhaarNo"] = uId;
 
-    res.status(201).json(user)
+    res.status(200).json({message: "success"})
 }

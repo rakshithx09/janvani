@@ -143,6 +143,16 @@ export const addvote = async(req:Request, res:Response)=>{
 
 }
 
+//update status
+export const updateStatus = async(req:Request, res:Response)=>{
+    const {status,postId} = req.body
+    await db.update(postTable).set({
+        status
+    }).where(eq(postTable.id,postId))
+    res.status(200).json({message:"done"})
+
+}
+
 // updatescopes
 export const updateScope = async()=>{
     const posts = await db.select().from(postTable)
