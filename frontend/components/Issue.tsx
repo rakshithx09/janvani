@@ -109,7 +109,7 @@ const Issue = ({post}:{post:Post}) => {
                 color="text.secondary"
                 component="div"
               >
-                {post.description}
+                {post?.description}
               </Typography>
               <Stack direction="row" spacing={1.5}>
                 <Chip label="#tag" color="primary" variant="outlined" />
