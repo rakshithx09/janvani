@@ -1,7 +1,62 @@
 import React from "react";
 import { Box, Typography, Avatar } from "@mui/material";
 
+
+function getRank(score: number) {
+  if (score < 2) {
+    return {
+      "name": "bronze III",
+      "image": "bronzesheild.svg"
+    }
+  }
+  if (score < 5) {
+    return {
+      "name": "bronze II",
+      "image": "bronzesheild.svg"
+    }
+  }
+  if (score < 8) {
+    return {
+      "name": "bronze I",
+      "image": "bronzesheild.svg"
+    }
+  }
+  if (score < 10) {
+    return {
+      "name": "silver III",
+      "image": "silversheild.svg"
+    }
+  }
+  if (score < 13) {
+    return {
+      "name": "silver II",
+      "image": "silversheild.svg"
+    }
+  }
+
+  if (score < 20) {
+    return {
+      "name": "silver I",
+      "image": "silversheild.svg"
+    }
+  }
+  if (score < 30) {
+    return {
+      "name": "Gold",
+      "image": "goldsheild.svg"
+    }
+  }
+
+  return {
+    "name": "platinum",
+    "image": "platinumsheild.svg"
+  }
+}
+
 const Profile = () => {
+
+  const noOfIssueReported = 89
+  const rankDetails = getRank(noOfIssueReported)
   return (
     <main>
       <Box
@@ -129,17 +184,17 @@ const Profile = () => {
             <Avatar
               sx={{ width: "150px", height: "150px" }}
               alt="Cindy Baker"
-              src="/map_sheildgold.svg"
+              src={rankDetails?.image}
             />
           </Box>
           <Typography variant="h4" sx={{ color: "#333" }}>
-            Gold III
+            {rankDetails?.name}
           </Typography>
           <Typography variant="h5" sx={{ color: "#333" }}>
-            Number of issues reported: 50
+            Number of issues reported: {noOfIssueReported}
           </Typography>
           <Typography variant="h5" sx={{ color: "#333" }}>
-            Number of issues solved: 50
+            Number of issues solved: {noOfIssueReported}
           </Typography>
         </Box>
       </Box>
