@@ -96,7 +96,6 @@ export const editPost = async(req:Request, res:Response)=>{
 
 export const getAllPosts = async(req:Request, res:Response)=>{
     try {
-        console.log("hi")
         const{userId}= req.params
         const user=await db.select().from(userTable).where(eq(userTable.id,Number(userId)))
         if(!user[0]){
