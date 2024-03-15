@@ -11,7 +11,8 @@ CREATE TABLE `Comment` (
 CREATE TABLE `department` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
-	`scope` integer NOT NULL
+	`scope` integer NOT NULL,
+	`password` text
 );
 --> statement-breakpoint
 CREATE TABLE `dept_pin` (
@@ -25,11 +26,14 @@ CREATE TABLE `post` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`title` text NOT NULL,
 	`description` text NOT NULL,
+	`latitude` text,
+	`longitude` text,
 	`image` text,
 	`complaintType` text NOT NULL,
 	`departmentId` integer NOT NULL,
 	`author_id` integer NOT NULL,
 	`scope` integer DEFAULT 1,
+	`status` integer,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	FOREIGN KEY (`departmentId`) REFERENCES `department`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`author_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE no action
@@ -59,6 +63,7 @@ CREATE TABLE `user` (
 CREATE TABLE `vote` (
 	`user_id` integer NOT NULL,
 	`postId` integer NOT NULL,
+	`choice` integer DEFAULT true,
 	PRIMARY KEY(`postId`, `user_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`postId`) REFERENCES `post`(`id`) ON UPDATE no action ON DELETE no action

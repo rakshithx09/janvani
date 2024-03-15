@@ -5,7 +5,6 @@ import { NextFunction, Request, Response } from "express"
 
 //add comment
 export const addComment = async (req:Request, res:Response)=>{
-    console.log("hey")
 
     try {
         const {description, userId}:{description:string, userId:string} = req.body
@@ -17,6 +16,8 @@ export const addComment = async (req:Request, res:Response)=>{
                 message:"userId not found"
             })
         }
+
+        console.log(req.body.userId,description,postId)
         
         const user= await db.select().from(userTable).where(eq(userTable.id, req.body.userId))//change req.body to req.user
         

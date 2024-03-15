@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1710487689371,
-      "tag": "0000_easy_kingpin",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1710492404135,
-      "tag": "0001_foamy_iron_fist",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1710494262803,
-      "tag": "0002_wonderful_malcolm_colcord",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1710495863565,
-      "tag": "0003_good_maelstrom",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1710495900761,
-      "tag": "0004_flaky_titania",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1710508861775,
-      "tag": "0005_mysterious_lorna_dane",
+      "when": 1710527221213,
+      "tag": "0000_glamorous_sersi",
       "breakpoints": true
     }
   ]
