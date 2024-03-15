@@ -188,7 +188,7 @@ export default function RootLayout({
         </Box>
       </Box>
 
-        {children}
+      {children}
     </section>
   );
 }
