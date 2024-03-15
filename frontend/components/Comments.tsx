@@ -1,6 +1,6 @@
 import React from "react";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Avatar } from "@mui/material";
 
 import { Comment } from "./Issue";
 
@@ -28,43 +28,67 @@ const Comments: React.FC<Props> = ({ comments ,setIsCommentsClicked }) => {
       <Box
         sx={{
           width: "100%",
-          //border: "2px solid black",
-          height: "200px",
           margin: "0.5rem 0",
-          borderRadius: "8px",
+          maxHeight: "300px",
           overflowY: "auto",
-          padding: "0.5rem",
-          backgroundColor: "#f9f9f9",
         }}
       >
-        {/* Display comments here */}
-        <div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <p>Ut ac turpis vel nisi aliquet malesuada.</p>
-          <p>
-            Pellentesque habitant morbi tristique senectus et netus et malesuada
-            fames ac turpis egestas.
-          </p>
-          <p>
-            Sed et convallis nunc. Morbi finibus augue et metus laoreet, vitae
-            varius velit sagittis.
-          </p>
-          <p>
-            Vivamus posuere, ipsum ac efficitur malesuada, dolor velit commodo
-            magna, non gravida nisi metus vel lacus.
-          </p>
-          <p>
-            Quisque aliquam dolor sed turpis iaculis, a dignissim mauris
-            suscipit.
-          </p>
-          <p>
-            Sed ultricies, urna vitae scelerisque hendrerit, mauris dui
-            efficitur metus, vel feugiat leo dolor in leo.
-          </p>
-          <p>Quisque ac neque vitae purus facilisis iaculis et a metus.</p>
-          <p>Donec eu sollicitudin eros.</p>
-          <p>Suspendisse potenti.</p>
+        {/* Example comment with profile picture */}
+        <div
+          className="flex items-start"
+          style={{ marginLeft: "1rem", marginRight: "1rem" }}
+        >
+          <Avatar alt="Profile Picture" src="/profile-pic.jpg" />
+          <div
+            style={{
+              backgroundColor: "#007bff",
+              color: "white",
+              padding: "0.5rem",
+              borderRadius: "0.5rem",
+              maxWidth: "70%",
+              marginBottom: "6px",
+              marginLeft: "10px",
+            }}
+          >
+            <p
+              style={{
+                marginBottom: "0.2rem",
+                fontSize: "0.9rem",
+              }}
+            >
+              John Doe
+            </p>
+            <p style={{ marginBottom: "0", fontSize: "13px" }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
         </div>
+        {/* Example comment with profile picture */}
+        <div
+          className="flex items-start"
+          style={{ marginLeft: "1rem", marginRight: "1rem" }}
+        >
+          <Avatar alt="Profile Picture" src="/profile-pic.jpg" />
+          <div
+            style={{
+              backgroundColor: "#007bff",
+              color: "white",
+              padding: "0.5rem",
+              borderRadius: "0.5rem",
+              maxWidth: "70%",
+              marginLeft: "10px",
+            }}
+          >
+            <p style={{ marginBottom: "0.2rem", fontSize: "0.9rem" }}>
+              Jane Smith
+            </p>
+            <p style={{ marginBottom: "0", fontSize: "13px" }}>
+              Ut ac turpis vel nisi aliquet malesuada.
+            </p>
+          </div>
+        </div>
+
+        {/* Add more comments as needed */}
       </Box>
       <div className="flex justify-between">
         <TextField
@@ -79,8 +103,7 @@ const Comments: React.FC<Props> = ({ comments ,setIsCommentsClicked }) => {
             color: "white",
             marginLeft: "1rem",
             "&:hover": {
-              // Override default hover effect
-              backgroundColor: "#007bff", // Set the same background color to maintain consistency
+              backgroundColor: "#007bff",
             },
           }}
         >

@@ -1,18 +1,18 @@
-"use client"
+"use client";
 import React from "react";
 import { useState } from "react";
 import {
-    Card,
-    CardContent,
-    CardMedia,
-    Typography,
-    Box,
-    TextField,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
 } from "@mui/material";
 import { UploadButton } from "../utils/uploadthing";
 
