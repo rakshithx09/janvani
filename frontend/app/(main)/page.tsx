@@ -19,7 +19,9 @@ export default function Home() {
   useEffect(() => {
     async function test() {
       try {
-        const res = await fetch(`http://localhost:4000/posts/getAllPosts/1`);
+        const res = await fetch(`http://localhost:4000/post/getallposts/1`,{
+          "method":"GET"
+        });
         const postData = await res.json() as Post;
         console.log(postData);
       } catch (error) {

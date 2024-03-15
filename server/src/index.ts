@@ -4,12 +4,15 @@ import postRouter from "./routes/postRoutes"
 import aadhaarRouter from "./routes/aadhaarRoutes"
 import commentRouter from "./routes/commentRoutes"
 import cron from 'node-cron'
+import cors from 'cors'
 import { createRouteHandler } from 'uploadthing/express'
 import { uploadRouter } from './uploadthing'
+import { updateScope } from './controllers/post'
 
 
 const app: Express = express()
 const port = process.env.PORT || 4000
+app.use(cors())
 app.use(
     "/api/uploadthing",
     createRouteHandler({
@@ -21,12 +24,12 @@ app.use(
     }),
   );
 
-app.use("api/v1/post/",postRouter)
+app.use("/post",postRouter)
 // app.use("api/v1/aadhaar/",aadhaarRouter)
-app.use("api/v1/comment/",commentRouter)
+app.use("/comment",commentRouter)
 
 cron.schedule('0 18 * * *', () => {
-    
+    updateScope()
     
 });
 
