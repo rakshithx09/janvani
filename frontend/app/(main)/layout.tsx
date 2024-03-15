@@ -25,7 +25,7 @@ export default function RootLayout({
           alignItems: "center",
           height: "102px",
           maxHeight: "110px",
-          padding: "2rem 8px",
+          padding: "2rem 18px",
           marginTop: "3rem",
           marginBottom: "4rem",
           marginLeft: "10rem",
