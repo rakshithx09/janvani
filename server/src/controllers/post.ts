@@ -1,6 +1,6 @@
 import { and, eq, inArray, sql } from "drizzle-orm"
 import { db } from "../db"
-import { commemtsTable, department_pincode, postTable, userTable } from "../db/schema"
+import { commemtsTable, department_pincode, postTable, userTable, voteTable } from "../db/schema"
 import { NextFunction, Request, Response } from "express"
 
 interface Post {
@@ -115,6 +115,31 @@ export const getAllPosts = async(req:Request, res:Response)=>{
     } catch (error) {
         
     }
+}
+
+//voting
+export const addvote = async(req:Request, res:Response)=>{
+    const {userId, choice, postId}=req.body
+    const userAlreadyVoted = await db.select().from(voteTable).where(and(eq(voteTable.userId, userId),eq(voteTable.postId, postId)))
+    if(userAlreadyVoted.length !==0){
+        await db.update(voteTable).set({
+            choice:choice
+        }).where(and(eq(voteTable.userId, userId),eq(voteTable.postId, postId)))
+
+        return res.status(200).json({
+            message:"voted successfully"
+        })
+    }else{
+        await db.insert(voteTable).values({
+            userId,
+            postId,
+            choice
+        })
+        return res.status(200).json({
+            message:"voted successfully"
+        })
+    }
+
 }
 
 // updatescopes
