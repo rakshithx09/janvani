@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -10,8 +10,39 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Comments from "./Comments";
 
-const Issue = () => {
+import { Post } from "@/app/(main)/page";
+
+
+export interface Comment {
+  id: number;
+  userId: number;
+  postId: number;
+  content:string
+  createdAt: number;
+}
+
+
+const Issue = ({post}:{post:Post}) => {
   const [isCommentsClicked, setIsCommentsClicked] = useState(false);
+  const [comments,setComments] =useState<Comment[]>()
+  useEffect(() => {
+    async function test() {
+      try {
+        const res = await fetch(`http://localhost:4000/post/getAllcomments/${post.id}`,{
+          "method":"GET"
+        });
+        const commentData = await res.json() as Comment[];
+        console.log(commentData);
+        setComments(commentData);
+      } catch (error) {
+        console.log(error);
+      }
+     
+      
+    }
+    test();
+  }, [])
+
   return (
     <Card
       sx={{
@@ -78,13 +109,7 @@ const Issue = () => {
                 color="text.secondary"
                 component="div"
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Necessitatibus nobis architecto alias rerum, est provident omnis
-                perspiciatis molestias veniam ducimus deleniti ad beatae?
-                Dolores optio porro quia nesciunt dicta error nam cupiditate
-                doloribus laudantium natus eum maxime quam tempore iusto fugit
-                pariatur quae nihil dolorem laboriosam quisquam, reiciendis cum
-                quaerat!
+                {post.description}
               </Typography>
               <Stack direction="row" spacing={1.5}>
                 <Chip label="#tag" color="primary" variant="outlined" />
@@ -106,7 +131,7 @@ const Issue = () => {
               </Stack>
             </>
           ) : (
-            <Comments setIsCommentsClicked={setIsCommentsClicked} />
+            <Comments comments={comments} setIsCommentsClicked={setIsCommentsClicked} />
           )}
         </CardContent>
       </Box>
