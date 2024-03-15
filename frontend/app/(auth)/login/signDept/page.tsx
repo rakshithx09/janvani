@@ -1,7 +1,19 @@
+"use client"
 import Logo from "@/components/Logo";
-import React from "react";
+import React, { FormEvent, useState } from "react";
+import { useRouter } from 'next/navigation'
 
 const LoginForm = () => {
+  const router = useRouter();
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const validate = async () => {
+
+  }
+  const handleSubmit = async (event:FormEvent) => {
+    event.preventDefault(); 
+    await validate(); 
+  };
   return (
     <div
       style={{
@@ -17,7 +29,7 @@ const LoginForm = () => {
         style={{
           width: "80%",
           margin: "auto",
-          padding: "10px", // Reduced padding
+          padding: "10px", 
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -30,14 +42,15 @@ const LoginForm = () => {
             backgroundColor: "#fafafa",
             borderRadius: "10px",
             textAlign: "center",
-            paddingTop: "50px", // Adjusted paddingTop
+            paddingTop: "50px", 
             boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
           }}
         >
           <h1 style={{ marginBottom: "40px", fontSize: "2.5em" }}>Sign IN</h1>
           <input
+            
             type="String"
-            placeholder="Enter department mail"
+            placeholder="Enter department id"
             style={{
               width: "80%",
               maxWidth: "300px",
@@ -46,6 +59,10 @@ const LoginForm = () => {
               border: "none",
               backgroundColor: "#eeeeef",
             }}
+            value={id}
+            onChange={(event) => {
+              setId(event.target.value);
+            }} 
           />
           <p></p>
           <input
@@ -58,6 +75,10 @@ const LoginForm = () => {
               marginBottom: "30px",
               border: "none",
               backgroundColor: "#eeeeef",
+            }}
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value);
             }}
           />
           <p></p>

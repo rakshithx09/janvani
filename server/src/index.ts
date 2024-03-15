@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from 'express'
 import postRouter from "./routes/postRoutes"
 import aadhaarRouter from "./routes/aadhaarRoutes"
 import commentRouter from "./routes/commentRoutes"
+import deptRouter from "./routes/departmentRoutes"
 import cron from 'node-cron'
 import cors from 'cors'
 import { createRouteHandler } from 'uploadthing/express'
@@ -26,6 +27,7 @@ app.use(
 
 app.use("/post",postRouter)
 // app.use("api/v1/aadhaar/",aadhaarRouter)
+app.use('/department',deptRouter)
 app.use("/comment",commentRouter)
 
 cron.schedule('0 18 * * *', () => {
