@@ -154,7 +154,7 @@ export default function RootLayout({
             justifyContent: "center",
           }}
         >
-          <a href="#">
+          <Link href="/map">
             <img
               src="pins-53 1.svg"
               alt="tick"
@@ -165,7 +165,7 @@ export default function RootLayout({
                 marginBottom: "10px",
               }}
             />
-          </a>
+          </Link>
         </Box>
 
         {/* Fourth inner Box */}
