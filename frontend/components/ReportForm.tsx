@@ -20,6 +20,8 @@ const ReportForm = () => {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [landmark, setLandmark] = useState('');
     const [department, setDepartment] = useState('');
     const [group, setGroup] = useState('');
@@ -94,6 +96,7 @@ const ReportForm = () => {
                         <TextField id="title" label="Title" variant="outlined" required
                             value={title}
                             onChange={(event) => {
+                                setTitle(event.target.value);
                                 setTitle(event.target.value);
                             }} />
                         <TextField id="description" label="Description" variant="outlined" required
