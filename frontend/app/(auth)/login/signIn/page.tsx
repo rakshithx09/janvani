@@ -1,3 +1,4 @@
+import Logo from "@/components/Logo";
 import React from "react";
 
 const LoginForm = () => {
@@ -33,7 +34,7 @@ const LoginForm = () => {
             boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
           }}
         >
-          <h1 style={{ marginBottom: "40px", fontSize: "2.5em" }}>REGISTER</h1>
+          <h1 style={{ marginBottom: "40px", fontSize: "2.5em" }}>Sign IN</h1>
           <input
             type="String"
             placeholder="ENTER YOUR AADHAR NUMBER"
@@ -79,47 +80,20 @@ const LoginForm = () => {
             style={{ width: "30%", margin: "30px auto", borderColor: "#ddd" }}
           />
         </div>
+
+
         <div
-          className="register"
+
           style={{
             width: "50%",
             marginLeft: "20px",
             backgroundColor: "#fafafa",
             borderRadius: "10px",
             textAlign: "center",
-            padding: "100px 0",
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <i
-            className="fas fa-user-plus fa-5x"
-            style={{ color: "#9526a9" }}
-          ></i>
-          <img
-            src="/logo-no-background.svg"
-            alt="logo"
-            style={{
-              height: "200px",
-              marginLeft: "5rem",
-            }}
-          />
-          <p style={{ fontSize: "18px", marginBottom: "30px" }}>
-            Do you have a account? Then Sign in
-          </p>
-          <button
-            style={{
-              backgroundColor: "#9526a9",
-              border: "none",
-              borderRadius: "20px",
-              padding: "10px 20px",
-              color: "#fff",
-              fontSize: "20px",
-              textTransform: "uppercase",
-              transition: "0.2s all ease-in-out",
-            }}
-          >
-            Sign IN <i className="fas fa-arrow-circle-right"></i>
-          </button>
+          <Logo message="Do you have a account? Then Sign in" linkText="sign up" link="signUp" />
         </div>
       </div>
     </div>

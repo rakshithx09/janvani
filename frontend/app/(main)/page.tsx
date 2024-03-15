@@ -1,12 +1,13 @@
 import Image from "next/image";
-import Issue from "./components/Issue";
+import Issue from "../../components/Issue";
 
 export default function Home() {
   return (
     <><Issue></Issue>
-    <Issue></Issue>
-    <Issue></Issue></>
-    
-    
+      <Issue></Issue>
+      <Issue></Issue>
+    </>
+
+
   );
 }
