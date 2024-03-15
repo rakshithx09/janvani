@@ -180,7 +180,7 @@ export default function RootLayout({
             justifyContent: "center",
           }}
         >
-          <a href="#">
+          <a href="/resolve">
             <img
               src="mdi_tick-outline.svg"
               alt="tick"
