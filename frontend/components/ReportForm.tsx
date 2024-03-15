@@ -6,9 +6,10 @@ import {
   Typography,
   Box,
   TextField,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   Button,
 } from "@mui/material";
 
@@ -17,23 +18,24 @@ const ReportForm = () => {
     <Card
       sx={{
         display: "flex",
-        width: "100%",
+        width: "80%",
         margin: "auto",
         borderRadius: "18px",
+        boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
       }}
-      elevation={5}
     >
       <CardMedia
         component="img"
-        sx={{ width: "50%" }}
+        sx={{ width: "50%", borderRadius: "18px 0 0 18px" }}
         image="/sampleIssue.jpg"
-        alt="Live from space album cover"
+        alt="Issue image"
       />
       <Box
         sx={{
           width: "50%",
           display: "flex",
           flexDirection: "column",
+          justifyContent: "center",
           padding: "1rem",
         }}
       >
@@ -41,157 +43,85 @@ const ReportForm = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: "0.5rem",
+            gap: "1rem",
           }}
         >
+          <Typography variant="h5" component="div" gutterBottom>
+            Report/Post Form
+          </Typography>
           <form
-            style={{ padding: "20px", maxWidth: "400px", margin: "0 auto" }}
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
-            <div style={{ marginBottom: "10px" }}>
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                style={{ marginLeft: "10px" }}
-              />
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <label htmlFor="phone">Phone Number:</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                pattern="[0-9]{10}"
-                required
-                style={{ marginLeft: "10px" }}
-              />
-              <small style={{ marginLeft: "10px", display: "block" }}>
-                Format: 10 digits without spaces or dashes
-              </small>
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <label htmlFor="landmark">Landmark:</label>
-              <input
-                type="text"
-                id="landmark"
-                name="landmark"
-                required
-                style={{ marginLeft: "10px" }}
-              />
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <label>Department:</label>
-              <br />
-              <input
-                type="radio"
-                id="department1"
-                name="department"
-                value="department1"
-                required
-              />
-              <label htmlFor="department1" style={{ marginLeft: "10px" }}>
-                Department 1
-              </label>
-              <br />
-              <input
-                type="radio"
-                id="department2"
-                name="department"
-                value="department2"
-              />
-              <label htmlFor="department2" style={{ marginLeft: "10px" }}>
-                Department 2
-              </label>
-              <br />
-              {/* Add more departments as needed */}
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <label>Group:</label>
-              <br />
-              <input
-                type="radio"
-                id="group1"
-                name="group"
-                value="group1"
-                required
-              />
-              <label htmlFor="group1" style={{ marginLeft: "10px" }}>
-                Group 1
-              </label>
-              <br />
-              <input type="radio" id="group2" name="group" value="group2" />
-              <label htmlFor="group2" style={{ marginLeft: "10px" }}>
-                Group 2
-              </label>
-              <br />
-              {/* Add more groups as needed */}
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <label>Category:</label>
-              <br />
-              <input
-                type="radio"
-                id="category1"
-                name="category"
-                value="category1"
-                required
-              />
-              <label htmlFor="category1" style={{ marginLeft: "10px" }}>
-                Category 1
-              </label>
-              <br />
-              <input
-                type="radio"
-                id="category2"
-                name="category"
-                value="category2"
-              />
-              <label htmlFor="category2" style={{ marginLeft: "10px" }}>
-                Category 2
-              </label>
-              <br />
-              {/* Add more categories as needed */}
-            </div>
-            <div style={{ marginBottom: "10px" }}>
-              <label>Severity:</label>
-              <br />
-              <input
-                type="radio"
-                id="severity1"
-                name="severity"
-                value="severity1"
-                required
-              />
-              <label htmlFor="severity1" style={{ marginLeft: "10px" }}>
-                Severity 1
-              </label>
-              <br />
-              <input
-                type="radio"
-                id="severity2"
-                name="severity"
-                value="severity2"
-              />
-              <label htmlFor="severity2" style={{ marginLeft: "10px" }}>
-                Severity 2
-              </label>
-              <br />
-              {/* Add more severity levels as needed */}
-            </div>
-            <button
+            <TextField id="name" label="Name" variant="outlined" required />
+            <TextField
+              id="phone"
+              label="Phone Number"
+              variant="outlined"
+              required
+              type="tel"
+              helperText="Format: 10 digits without spaces or dashes"
+            />
+            <TextField
+              id="landmark"
+              label="Landmark"
+              variant="outlined"
+              required
+            />
+            <FormControl variant="outlined" required>
+              <InputLabel id="department-label">Department</InputLabel>
+              <Select
+                labelId="department-label"
+                id="department"
+                label="Department"
+              >
+                <MenuItem value="department1">Department 1</MenuItem>
+                <MenuItem value="department2">Department 2</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined" required>
+              <InputLabel id="group-label">Group</InputLabel>
+              <Select labelId="group-label" id="group" label="Group">
+                <MenuItem value="group1">Group 1</MenuItem>
+                <MenuItem value="group2">Group 2</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined" required>
+              <InputLabel id="category-label">Category</InputLabel>
+              <Select labelId="category-label" id="category" label="Category">
+                <MenuItem value="category1">Category 1</MenuItem>
+                <MenuItem value="category2">Category 2</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined" required>
+              <InputLabel id="severity-label">Severity</InputLabel>
+              <Select labelId="severity-label" id="severity" label="Severity">
+                <MenuItem value="severity1">Severity 1</MenuItem>
+                <MenuItem value="severity2">Severity 2</MenuItem>
+              </Select>
+            </FormControl>
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="raised-button-file"
+              multiple
+              type="file"
+            />
+            <label htmlFor="raised-button-file">
+              <Button
+                variant="contained"
+                component="span"
+                sx={{ backgroundColor: "#007bff", color: "white" }}
+              >
+                Upload Photo
+              </Button>
+            </label>
+            <Button
+              variant="contained"
               type="submit"
-              style={{
-                padding: "10px",
-                backgroundColor: "#007bff",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-              }}
+              sx={{ backgroundColor: "#007bff", color: "white" }}
             >
               Submit
-            </button>
+            </Button>
           </form>
         </CardContent>
       </Box>
