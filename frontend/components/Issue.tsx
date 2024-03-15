@@ -73,7 +73,7 @@ const Issue = ({ post }: { post: Post }) => {
     async function test() {
       try {
         const res = await fetch(
-          `http://localhost:4000/post/getAllcomments/${post.id}`,
+          `http://localhost:4000/comment/getAllcomments/${post.id}`,
           {
             method: "GET",
           }
