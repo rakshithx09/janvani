@@ -5,25 +5,30 @@ import { NextFunction, Request, Response } from "express"
 
 //add comment
 export const addComment = async (req:Request, res:Response)=>{
+    console.log("hey")
+
     try {
         const {description, userId}:{description:string, userId:string} = req.body
         const {postId} = req.params
+       
         // const userId = req.user?.userId
         if(!userId){
             return res.status(400).json({
                 message:"userId not found"
             })
         }
-
+        
         const user= await db.select().from(userTable).where(eq(userTable.id, req.body.userId))//change req.body to req.user
+        
         if(!user){
             return res.status(400).json({
                 message:"user does not exist"
             })
         }
-
-        await db.insert(commemtsTable).values({content:description,userId:Number(userId), postId:Number(postId) })
-
+        
+        
+        const a=await db.insert(commemtsTable).values({content:description,userId:Number(userId), postId:Number(postId) })
+        console.log(a)
         res.status(201).json({
             message:"Comment posted successfully"
         })

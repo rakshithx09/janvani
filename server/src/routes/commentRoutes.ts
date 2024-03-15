@@ -4,7 +4,7 @@ import { addComment, editComment, getAllComments } from '../controllers/comment'
 const router = express.Router()
 
 router.route("/getAllcomments/:postId").get(getAllComments)
-router.route("/addcomment").post(addComment)
+router.route("/addcomment/:postId").post(addComment)
 router.route("/editcomment").post(editComment)
 
 

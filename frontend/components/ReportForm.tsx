@@ -138,7 +138,7 @@ const ReportForm = () => {
                                     setDepartment(event.target.value);
                                 }}
                             >
-                                {depList.map(dep => <MenuItem value={dep.id}>{dep.name}</MenuItem>)}
+                                {depList.map(dep => <MenuItem key={dep.id} value={dep.id}>{dep.name}</MenuItem>)}
                             </Select>
                         </FormControl>
                         <FormControl variant="outlined" required>

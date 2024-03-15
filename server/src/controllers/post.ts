@@ -56,7 +56,7 @@ export const editPost = async(req:Request, res:Response)=>{
     try {
         const {title, description, image, complaintType, departmentId, userId} : Post= req.body
         const {postId} = req.params
-        // const userId = req.user?.userId
+        
         if(!userId){
             return res.status(400).json({
                 message:"userId not found"

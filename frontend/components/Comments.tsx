@@ -1,19 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { Box, Button, TextField, Avatar } from "@mui/material";
+import Comment from "./Comment";
 
-import { Comment } from "./Issue";
+import { CommentType } from "./Issue";
 
 interface Props {
   setIsCommentsClicked: SetIsCommentsClicked;
 }
 interface Props {
-  comments: Comment[] | undefined; // An array of Comment objects
+  postId:number,
+  comments: CommentType[] | undefined; // An array of Comment objects
   setIsCommentsClicked: (newValue: boolean) => void;
 }
 type SetIsCommentsClicked = (newValue: boolean) => void;
 
-const Comments: React.FC<Props> = ({ comments ,setIsCommentsClicked }) => {
+
+
+
+
+const Comments: React.FC<Props> = ({ postId,comments ,setIsCommentsClicked }) => {
+
+  
+  const [comment,setComment] =useState("");
+
+  const handleComment=async () => {
+    await fetch(`http://localhost:4000/comment/addcomment/${postId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            description:comment,
+            userId:1
+        })
+    }).then(async (res) => {
+        alert("sucess")
+        if (!res.ok) {
+            return Promise.reject()
+        }
+    }).catch((err) => {
+        console.log(err)
+    })
+  };
+
   return (
     <>
       <div className="flex items-center gap-4 mb-2">
@@ -33,70 +63,23 @@ const Comments: React.FC<Props> = ({ comments ,setIsCommentsClicked }) => {
           overflowY: "auto",
         }}
       >
-        {/* Example comment with profile picture */}
-        <div
-          className="flex items-start"
-          style={{ marginLeft: "1rem", marginRight: "1rem" }}
-        >
-          <Avatar alt="Profile Picture" src="/profile-pic.jpg" />
-          <div
-            style={{
-              backgroundColor: "#007bff",
-              color: "white",
-              padding: "0.5rem",
-              borderRadius: "0.5rem",
-              maxWidth: "70%",
-              marginBottom: "6px",
-              marginLeft: "10px",
-            }}
-          >
-            <p
-              style={{
-                marginBottom: "0.2rem",
-                fontSize: "0.9rem",
-              }}
-            >
-              John Doe
-            </p>
-            <p style={{ marginBottom: "0", fontSize: "13px" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
-        </div>
-        {/* Example comment with profile picture */}
-        <div
-          className="flex items-start"
-          style={{ marginLeft: "1rem", marginRight: "1rem" }}
-        >
-          <Avatar alt="Profile Picture" src="/profile-pic.jpg" />
-          <div
-            style={{
-              backgroundColor: "#007bff",
-              color: "white",
-              padding: "0.5rem",
-              borderRadius: "0.5rem",
-              maxWidth: "70%",
-              marginLeft: "10px",
-            }}
-          >
-            <p style={{ marginBottom: "0.2rem", fontSize: "0.9rem" }}>
-              Jane Smith
-            </p>
-            <p style={{ marginBottom: "0", fontSize: "13px" }}>
-              Ut ac turpis vel nisi aliquet malesuada.
-            </p>
-          </div>
-        </div>
-
-        {/* Add more comments as needed */}
+        {
+          comments?.map((comment)=>{
+            return <Comment key={comment.id} comment={comment}/>
+          })
+        }
+        
       </Box>
       <div className="flex justify-between">
         <TextField
           variant="outlined"
           placeholder="Type your comment here..."
           sx={{ width: "70%" }}
+          value={comment}
+          onChange={(event)=>{setComment(event.target.value)}}
         />
         <Button
+          onClick={handleComment}
           variant="contained"
           sx={{
             backgroundColor: "#007bff",
@@ -105,6 +88,7 @@ const Comments: React.FC<Props> = ({ comments ,setIsCommentsClicked }) => {
             "&:hover": {
               backgroundColor: "#007bff",
             },
+            
           }}
         >
           Comment

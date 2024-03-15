@@ -12,36 +12,81 @@ import Comments from "./Comments";
 
 import { Post } from "@/app/(main)/page";
 
-
-export interface Comment {
+export interface CommentType {
   id: number;
   userId: number;
   postId: number;
-  content:string
+  content: string;
   createdAt: number;
 }
 
-
-const Issue = ({post}:{post:Post}) => {
+const Issue = ({ post }: { post: Post }) => {
   const [isCommentsClicked, setIsCommentsClicked] = useState(false);
-  const [comments,setComments] =useState<Comment[]>()
+  const [comments, setComments] = useState<CommentType[]>();
+
+  const handleUpVote = async () => {
+    const data = {
+      postId: post.id,
+      userId: 1,
+      choice: true,
+    };
+    await fetch("http://localhost:4000/post/addvote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res)=>{
+      if (!res.ok) {
+        const error = data;
+        return Promise.reject(error)
+    }
+    alert("upvoted successfully")
+    }).catch((err)=>{
+      console.log(err)
+    });
+  };
+
+  const handleDownVote = async () => {
+    const data = {
+      postId: post.id,
+      userId: 1,
+      choice: false,
+    };
+    await fetch("http://localhost:4000/post/addvote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res)=>{
+      if (!res.ok) {
+        const error = data;
+        return Promise.reject(error)
+    }
+    alert("downvoted successfully")
+    }).catch((err)=>{
+      console.log(err)
+    });
+  };
   useEffect(() => {
     async function test() {
       try {
-        const res = await fetch(`http://localhost:4000/post/getAllcomments/${post.id}`,{
-          "method":"GET"
-        });
-        const commentData = await res.json() as Comment[];
+        const res = await fetch(
+          `http://localhost:4000/post/getAllcomments/${post.id}`,
+          {
+            method: "GET",
+          }
+        );
+        const commentData = (await res.json()) as CommentType[];
         console.log(commentData);
         setComments(commentData);
       } catch (error) {
         console.log(error);
       }
-     
-      
     }
     test();
-  }, [])
+  }, []);
 
   return (
     <Card
@@ -116,8 +161,12 @@ const Issue = ({post}:{post:Post}) => {
                 <Chip label="#tag" color="primary" variant="outlined" />
               </Stack>
               <Stack direction="row" spacing={1.5}>
-                <img src="/arrowup.svg" alt="arrow" />
-                <img src="/arrowdown.svg" alt="arrow" />
+                <img src="/arrowup.svg" alt="arrow" onClick={handleUpVote} />
+                <img
+                  src="/arrowdown.svg"
+                  alt="arrow"
+                  onClick={handleDownVote}
+                />
 
                 <Chip
                   label="Comments"
@@ -131,7 +180,11 @@ const Issue = ({post}:{post:Post}) => {
               </Stack>
             </>
           ) : (
-            <Comments comments={comments} setIsCommentsClicked={setIsCommentsClicked} />
+            <Comments
+            postId={post.id}
+              comments={comments}
+              setIsCommentsClicked={setIsCommentsClicked}
+            />
           )}
         </CardContent>
       </Box>
