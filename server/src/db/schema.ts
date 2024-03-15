@@ -20,6 +20,7 @@ export const postTable = sqliteTable('post', {
     complaintType: text('complaintType', { enum: ['association', 'group', 'individual', 'individual'] }).notNull(),
     departmentId: integer("departmentId").references(() => departmentTable.id).notNull(),
     userId: integer("author_id").references(() => userTable.id).notNull(),
+    scope:integer("scope").default(1),
     createdAt: integer('created_at')
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull()
@@ -38,11 +39,12 @@ export const commemtsTable = sqliteTable('Comment', {
 export const departmentTable = sqliteTable('department',{
     id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
     name:text("name").notNull(),
+    scope:integer("scope").notNull()
 })
 
 export const department_pincode = sqliteTable('dept_pin',{
     departmentId: integer("departmentId").references(() => departmentTable.id).notNull(),
-    pincode: text("pincode")    
+    pincode: text("pincode").notNull()   
 }, (table) => {
     return {
       pk: primaryKey({ columns: [table.departmentId, table.pincode] }),

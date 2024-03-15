@@ -17,13 +17,13 @@ interface Post {
 //create post
 export const createPost = async(req:Request, res:Response)=>{
     try {
-        const {title, description, image, complaintType, departmentId, } : Post= req.body
+        const {title, description, image, complaintType, departmentId} : Post= req.body
         if(!title){
             return res.status(400).json({
                 message:"Please provide all values"
             })
         }
-        const user= await db.select().from(userTable).where(eq(userTable.id, req.body.userId))//change req.body to req.user
+        const user= await db.select().from(userTable).where(eq(userTable.id, req.body.userId))
         if(!user){
             return res.status(400).json({
                 message:"user does not exist"
@@ -97,13 +97,24 @@ export const editPost = async(req:Request, res:Response)=>{
 }
 
 
-// export const getAllPosts = async(req:Request, res:Response)=>{
-//     try {
-//         const{userId}= req.params
-//         const user=await db.select().from(userTable).where(eq(userTable.id,Number(userId)))
-//         // const pincodes = await db.select({pincode:department_pincode.pincode}).from(department_pincode)
-//         const posts = await db.select().from(postTable).where(inArray(,pincodes))
-//     } catch (error) {
+export const getAllPosts = async(req:Request, res:Response)=>{
+    try {
+        const{userId}= req.params
+        const user=await db.select().from(userTable).where(eq(userTable.id,Number(userId)))
+        if(!user[0]){
+            return res.status(404).json({
+                message:`user does not exist`
+            })
+        }
+        // const pincodes = await db.select({pincode:department_pincode.pincode}).from(department_pincode)
+        const departmentsQuery =  db.selectDistinct({departmentId:department_pincode.departmentId}).from(department_pincode).where(eq(department_pincode.pincode,user[0].pinCode))
+        const posts = await db.select().from(postTable).where(inArray(postTable.departmentId,departmentsQuery))
+
+        res.status(200).json(posts)
+
+    } catch (error) {
         
-//     }
-// }
+    }
+}
+
+// 
