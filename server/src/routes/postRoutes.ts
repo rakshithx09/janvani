@@ -4,6 +4,6 @@ import userAuth from '../middleware/auth'
 
 const router = express.Router()
 
-router.route("/createpost").post(userAuth,createPost)
+router.route("/createpost").post(createPost)
 
 export default router

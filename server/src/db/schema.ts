@@ -6,6 +6,7 @@ export const userTable = sqliteTable('user', {
     name: text("name").notNull(),
     email: text("email").notNull().unique(),
     password: text("password").notNull(),
+    pinCode:text("pincode").notNull(),
     joinedOn: integer('joined_on')
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull()
@@ -17,7 +18,7 @@ export const postTable = sqliteTable('post', {
     description: text("description").notNull(),
     image: text("image"),
     complaintType: text('complaintType', { enum: ['association', 'group', 'individual', 'individual'] }).notNull(),
-    department: text('department', { enum: ['engineering', 'public health', 'revenue', 'town planning'] }).notNull(),
+    departmentId: integer("departmentId").references(() => departmentTable.id).notNull(),
     userId: integer("author_id").references(() => userTable.id).notNull(),
     createdAt: integer('created_at')
         .default(sql`CURRENT_TIMESTAMP`)
@@ -33,3 +34,26 @@ export const commemtsTable = sqliteTable('Comment', {
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull()
 });
+
+export const departmentTable = sqliteTable('department',{
+    id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
+    name:text("name").notNull(),
+})
+
+export const department_pincode = sqliteTable('dept_pin',{
+    departmentId: integer("departmentId").references(() => departmentTable.id).notNull(),
+    pincode: text("pincode")    
+}, (table) => {
+    return {
+      pk: primaryKey({ columns: [table.departmentId, table.pincode] }),
+    }
+})
+
+export const voteTable = sqliteTable('vote',{
+    userId: integer("user_id").references(() => userTable.id).notNull(),
+    postId: integer("postId").references(() => postTable.id).notNull(),    
+}, (table) => {
+    return {
+      pk: primaryKey({ columns: [table.userId, table.postId] }),
+    }
+})

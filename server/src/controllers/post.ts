@@ -1,6 +1,6 @@
-import { and, eq } from "drizzle-orm"
+import { and, eq, inArray } from "drizzle-orm"
 import { db } from "../db"
-import { commemtsTable, postTable, userTable } from "../db/schema"
+import { commemtsTable, department_pincode, postTable, userTable } from "../db/schema"
 import { NextFunction, Request, Response } from "express"
 
 interface Post {
@@ -9,7 +9,7 @@ interface Post {
     description: string;
     image?: string;
     complaintType: 'association' | 'group' | 'individual';
-    department: 'engineering' | 'public health' | 'revenue' | 'town planning';
+    departmentId: number;
     userId: number;
     createdAt: number;
 }
@@ -17,7 +17,7 @@ interface Post {
 //create post
 export const createPost = async(req:Request, res:Response)=>{
     try {
-        const {title, description, image, complaintType, department, } : Post= req.body
+        const {title, description, image, complaintType, departmentId, } : Post= req.body
         if(!title){
             return res.status(400).json({
                 message:"Please provide all values"
@@ -35,7 +35,7 @@ export const createPost = async(req:Request, res:Response)=>{
             description:description,
             image:image,
             complaintType:complaintType,
-            department:department,
+            departmentId:Number(departmentId),
             userId:req.body.userId as number
             })
 
@@ -47,39 +47,12 @@ export const createPost = async(req:Request, res:Response)=>{
 }
 
 
-//add comment
-export const addComment = async (req:Request, res:Response, )=>{
-    try {
-        const {description, userId}:{description:string, userId:string} = req.body
-        const {postId} = req.params
-        // const userId = req.user?.userId
-        if(!userId){
-            return res.status(400).json({
-                message:"userId not found"
-            })
-        }
 
-        const user= await db.select().from(userTable).where(eq(userTable.id, req.body.userId))//change req.body to req.user
-        if(!user){
-            return res.status(400).json({
-                message:"user does not exist"
-            })
-        }
-
-        await db.insert(commemtsTable).values({content:description,userId:Number(userId), postId:Number(postId) })
-
-        res.status(201).json({
-            message:"Comment posted successfully"
-        })
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 //edit post
 export const editPost = async(req:Request, res:Response)=>{
     try {
-        const {title, description, image, complaintType, department, userId} : Post= req.body
+        const {title, description, image, complaintType, departmentId, userId} : Post= req.body
         const {postId} = req.params
         // const userId = req.user?.userId
         if(!userId){
@@ -116,7 +89,7 @@ export const editPost = async(req:Request, res:Response)=>{
             description:description,
             image:image,
             complaintType:complaintType,
-            department:department,
+            departmentId:departmentId,
         }).where(and(eq(postTable.id,Number(postId)),eq(postTable.userId,Number(userId))))
     } catch (error) {
         res.status(500).json({message:"something went wrong...editPost"})
@@ -124,45 +97,13 @@ export const editPost = async(req:Request, res:Response)=>{
 }
 
 
-//edit comment
-export const editComment = async(req:Request, res:Response)=>{
-    try {
-        const { description, userId } : {description:string, userId:string}= req.body
-        const {commentId} = req.params
-        // const userId = req.user?.userId
-        if(!userId){
-            return res.status(400).json({
-                message:"userId not found"
-            })
-        }
-
-        const user= await db.select().from(userTable).where(eq(userTable.id, req.body.userId))//change req.body to req.user
-        if(!user[0]){
-            return res.status(400).json({
-                message:"user does not exist"
-            })
-        }
+// export const getAllPosts = async(req:Request, res:Response)=>{
+//     try {
+//         const{userId}= req.params
+//         const user=await db.select().from(userTable).where(eq(userTable.id,Number(userId)))
+//         // const pincodes = await db.select({pincode:department_pincode.pincode}).from(department_pincode)
+//         const posts = await db.select().from(postTable).where(inArray(,pincodes))
+//     } catch (error) {
         
-
-        const comment = await db.select().from(commemtsTable).where(eq(commemtsTable.id, Number(commentId)))
-
-        if(!comment[0]){
-            return res.status(400).json({
-                message:`comment with id: ${commentId} does not exist`
-            }) 
-        }
-        
-
-        if( comment[0].userId !== Number(userId)){
-            return res.status(400).json({
-                message:`No permission`
-            })
-        }
-
-        await db.update(commemtsTable).set({
-            content:description
-        }).where(and(eq(commemtsTable.id,Number(commentId)),eq(commemtsTable.userId,Number(userId))))
-    } catch (error) {
-        res.status(500).json({message:"something went wrong...editcomment"})
-    }
-}
+//     }
+// }
