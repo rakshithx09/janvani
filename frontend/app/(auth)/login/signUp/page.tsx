@@ -1,6 +1,44 @@
+"use client"
 import Logo from "@/components/Logo";
+import { useState } from "react";
+
+import { redirect, useRouter } from 'next/navigation'
+
 
 const LoginForm = () => {
+  const [aadhar, setAadhar] = useState("");
+  const [otp, setOtp] = useState("")
+
+  const router = useRouter()
+
+  const handleSubmit = async () => {
+    await fetch("http://localhost:4000/aadhaar/verfifyUser/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            uId:aadhar,
+            otp
+        })
+    }).then(async (res) => {
+      const data = await res.json();
+
+        alert("sucess")
+        if (!res.ok) {
+          const error = data;
+
+            return Promise.reject(data)
+
+        }
+        console.log("hello")
+        router.push('/')
+
+    }).catch((err) => {
+        console.log(err)
+    })
+};
+
   return (
     <div
       style={{
@@ -35,6 +73,8 @@ const LoginForm = () => {
         >
           <h1 style={{ marginBottom: "40px", fontSize: "2.5em" }}>REGISTER</h1>
           <input
+            value={aadhar}
+            onChange={(e) => { setAadhar(e.target.value) }}
             type="String"
             placeholder="ENTER YOUR AADHAR NUMBER"
             style={{
@@ -50,6 +90,8 @@ const LoginForm = () => {
           <input
             type="password"
             placeholder="Enter the OTP"
+            value={otp}
+            onChange={(e) => { setOtp(e.target.value) }}
             style={{
               width: "80%",
               maxWidth: "300px",
@@ -61,6 +103,7 @@ const LoginForm = () => {
           />
           <p></p>
           <button
+          onClick={handleSubmit}
             style={{
               width: "80%",
               maxWidth: "300px",
@@ -90,49 +133,9 @@ const LoginForm = () => {
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <Logo message="Already have an account? Sign in" linkText="sign in" link="signIn"/>
+          <Logo message="Already have an account? Sign in" linkText="sign in" link="signIn" />
         </div>
-        {/* <div
-          className="register"
-          style={{
-            width: "50%",
-            marginLeft: "20px",
-            backgroundColor: "#fafafa",
-            borderRadius: "10px",
-            textAlign: "center",
-            padding: "100px",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          
-          <img
-            src="/logo-no-background.svg"
-            alt="logo"
-            // style={{
-            //   height: "200px",
-            //   marginLeft: "5rem",
-            // }}
-
-            className="w-full h-full object-cover object-center mb-8"
-          />
-          <p style={{ fontSize: "18px", marginBottom: "30px" }}>
-            Do you have a account? Then Sign in
-          </p>
-          <button
-            style={{
-              backgroundColor: "#9526a9",
-              border: "none",
-              borderRadius: "20px",
-              padding: "10px 20px",
-              color: "#fff",
-              fontSize: "20px",
-              textTransform: "uppercase",
-              transition: "0.2s all ease-in-out",
-            }}
-          >
-            Sign IN <i className="fas fa-arrow-circle-right"></i>
-          </button>
-        </div> */}
+        
       </div>
     </div>
   );

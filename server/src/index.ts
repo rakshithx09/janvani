@@ -29,7 +29,7 @@ app.use(
   );
 
 app.use("/post",postRouter)
-// app.use("api/v1/aadhaar/",aadhaarRouter)
+app.use("/aadhaar/",aadhaarRouter)
 app.use('/department',deptRouter)
 app.use("/comment",commentRouter)
 
