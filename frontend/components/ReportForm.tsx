@@ -18,14 +18,41 @@ import { UploadButton } from "../utils/uploadthing";
 
 const ReportForm = () => {
 
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [landmark, setLandmark] = useState('');
     const [department, setDepartment] = useState('');
     const [group, setGroup] = useState('');
     const [category, setCategory] = useState('');
     const [severity, setSeverity] = useState('');
+    const [url,setUrl]= useState("");   
+    const handleSubmit= async ()=>{
+        const data={
+            title,
+            description,
+            image:url,
+            complaintType:category,
+            departmentId:department,
+            userId:1,
+        }
+        await fetch("http://localhost:4000/post/createpost/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(async(res)=>{
+            alert("sucess")
+            console.log(res)
+            if (!res.ok) {
+                const error = data;
+                return Promise.reject(error)
+            }
 
+        }).catch((err)=>{
+            console.log(err)
+        })
+    };
     return (
         <Card
             sx={{
@@ -61,26 +88,19 @@ const ReportForm = () => {
                     <Typography variant="h5" component="div" gutterBottom>
                         Report/Post Form
                     </Typography>
-                    <form
+                    <form onSubmit={handleSubmit}
                         style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
                     >
-                        <TextField id="name" label="Name" variant="outlined" required
-                            value={name}
+                        <TextField id="title" label="Title" variant="outlined" required
+                            value={title}
                             onChange={(event) => {
-                                setName(event.target.value);
+                                setTitle(event.target.value);
                             }} />
-                        <TextField
-                            id="phone"
-                            label="Phone Number"
-                            variant="outlined"
-                            required
-                            type="tel"
-                            helperText="Format: 10 digits without spaces or dashes"
-                            value={phoneNumber}
+                        <TextField id="description" label="Description" variant="outlined" required
+                            value={description}
                             onChange={(event) => {
-                                setPhoneNumber(event.target.value);
-                            }}
-                        />
+                                setDescription(event.target.value);
+                            }} />
                         <TextField
                             id="landmark"
                             label="Landmark"
@@ -149,6 +169,7 @@ const ReportForm = () => {
                                 onClientUploadComplete={(res) => {
                                     // Do something with the response
                                     console.log("Files: ", res);
+                                    setUrl(res[0].url);
                                     alert("Upload Completed");
                                 }}
                                 onUploadError={(error: Error) => {
@@ -159,6 +180,7 @@ const ReportForm = () => {
                         <Button
                             variant="contained"
                             type="submit"
+                            
                             sx={{ backgroundColor: "#007bff", color: "white" }}
                         >
                             Submit
