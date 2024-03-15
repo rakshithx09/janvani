@@ -9,7 +9,7 @@ const app: Express = express()
 const port = process.env.PORT || 4000
 
 app.use("api/v1/post/",postRouter)
-app.use("api/v1/aadhaar/",aadhaarRouter)
+/* app.use("api/v1/aadhaar/",aadhaarRouter) */
 app.use("api/v1/comment/",commentRouter)
 
 app.listen(port, () => {
