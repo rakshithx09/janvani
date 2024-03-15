@@ -1,5 +1,6 @@
+"use client"
 import Logo from "@/components/Logo";
-import React from "react";
+import { redirect } from "next/navigation";
 
 const LoginForm = () => {
   return (
@@ -13,7 +14,8 @@ const LoginForm = () => {
         fontFamily: "sans-serif",
       }}
     >
-      <div
+      <form
+        onSubmit={()=>{redirect("/")}}
         style={{
           width: "80%",
           margin: "auto",
@@ -81,9 +83,7 @@ const LoginForm = () => {
           />
         </div>
 
-
         <div
-
           style={{
             width: "50%",
             marginLeft: "20px",
@@ -95,7 +95,7 @@ const LoginForm = () => {
         >
           <Logo message="Do you have a account? Then Sign in" linkText="sign up" link="signUp" />
         </div>
-      </div>
+      </form>
     </div>
   );
 };

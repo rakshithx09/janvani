@@ -1,9 +1,9 @@
 
 import {Request, Response } from "express"
-import aadhaarDetails from "../../data/aadhaar.json"
+import aadhaarDetails from "../../data/aadhaar"
 
 type Person = {
-    uid: string;
+    uid: "111122223333";
     name: string;
     dob: string;
     gender: 'M' | 'F';
@@ -22,7 +22,7 @@ type Person = {
 
 //create post
 export const getUser = async(req:Request, res:Response)=>{
-    const uId:string|null = req.body.uId;
+    const uId:keyof typeof aadhaarDetails = req.body.uId;
 
     if(!uId){
         return res.status(400).json({
@@ -30,16 +30,19 @@ export const getUser = async(req:Request, res:Response)=>{
         })
     }
 
-    const user = aadhaarDetails[uId]
-    if(!user){
+    let user;
+    if (uId in aadhaarDetails) {
+        user = aadhaarDetails[111122223333];
+    } else {
         return res.status(404).json({
             message:"user not found"
         })
     }
 
-    user["aadhaarNo"] = uId;
-
-    res.status(201).json(user)
+    res.status(201).json({
+        ...user,
+        aadhaarNo:uId
+    })
 }
 
 export const verifyUser = async(req:Request, res:Response)=>{
