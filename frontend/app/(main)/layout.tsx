@@ -67,7 +67,7 @@ export default function RootLayout({
                 animation: "scrollAnimation 10s linear infinite",
               }}
             >
-              <p>Welcome back Your name should be added</p>
+              <p>Welcome back Varsith R Pawar</p>
             </Box>
           </Box>
           <Link className="cursor-pointer" href="/profile">
