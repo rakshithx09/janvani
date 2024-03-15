@@ -82,6 +82,9 @@ export const getAllComments=async(req:Request, res:Response)=>{
 
         res.status(200).json(comments)
     } catch (error) {
-        
+        res.status(500).json({
+            message:"Something went wrong"
+        })
     }
 }
+
