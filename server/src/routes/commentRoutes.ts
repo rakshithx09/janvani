@@ -5,8 +5,6 @@ const router = express.Router()
 
 router.route("/getAllcomments/:postId").get(getAllComments)
 router.route("/addcomment").post(addComment)
-
-
 router.route("/editcomment").post(editComment)
 
 

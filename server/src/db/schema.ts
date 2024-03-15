@@ -28,6 +28,8 @@ export const postTable = sqliteTable('post', {
     id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
     title: text("title").notNull(),
     description: text("description").notNull(),
+    latitude:text("latitude"),
+    longitude:text("longitude"),
     image: text("image"),
     complaintType: text('complaintType', { enum: ['association', 'group', 'individual', 'individual'] }).notNull(),
     departmentId: integer("departmentId").references(() => departmentTable.id).notNull(),
