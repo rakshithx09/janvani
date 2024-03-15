@@ -1,4 +1,6 @@
-import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+"use client"
+import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 type Repo = {
     name: string
@@ -16,9 +18,10 @@ interface Post {
     createdAt: number;
 }
 
-
+/* 
 
 export async function getServerSideProps({ params }: { params: { issueId: string } }) {
+
     const { issueId } = params;
     const res = await fetch(`https://api.example.com/posts/${issueId}`);
     const postData = await res.json() as Post;
@@ -27,9 +30,20 @@ export async function getServerSideProps({ params }: { params: { issueId: string
     const comments = await commentsResponse.json() as Post;
 
     return { props: { postData, comments } };
-}
+} */
 
-export default function page({ postData, comments }: { postData: Post, comments: { userId: string, content: string }[] }) {
+export default function Page({ postData, comments }: { postData: Post, comments: { userId: string, content: string }[] }) {
+    const {issueId}=useParams()
+    useEffect(()=>{
+        async function test() {
+    const res = await fetch(`https://api.example.com/posts/${issueId}`);
+    const postData = await res.json() as Post;
+
+    const commentsResponse = await fetch(`https://api.example.com/posts/${issueId}`);
+    const comments = await commentsResponse.json() as Post;
+        }
+        test();
+    },[])
     return (
         <>
             <div>
@@ -49,7 +63,7 @@ export default function page({ postData, comments }: { postData: Post, comments:
             <div>
                 {comments.map((comment) => {
                     return (
-                        <div>
+                        <div key={comment.userId}>
                             <p>{comment.content}</p>
                         </div>
                     )
