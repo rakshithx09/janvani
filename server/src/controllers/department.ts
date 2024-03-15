@@ -25,3 +25,13 @@ export const signIn = async(req:Request, res:Response)=>{
         console.log(error)
     }
 }
+
+
+export const getAllDepartments = async(req:Request, res:Response)=>{
+    try {
+        const departments = await db.select().from(departmentTable)
+        res.status(200).json(departments)
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -18,8 +18,8 @@ import { UploadButton } from "../utils/uploadthing";
 
 const ReportForm = () => {
 
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [landmark, setLandmark] = useState('');
     const [department, setDepartment] = useState('');
     const [group, setGroup] = useState('');
@@ -64,23 +64,17 @@ const ReportForm = () => {
                     <form
                         style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
                     >
-                        <TextField id="name" label="Name" variant="outlined" required
-                            value={name}
+                        <TextField id="title" label="title" variant="outlined" required
+                            value={title}
                             onChange={(event) => {
-                                setName(event.target.value);
+                                setTitle(event.target.value);
                             }} />
-                        <TextField
-                            id="phone"
-                            label="Phone Number"
-                            variant="outlined"
-                            required
-                            type="tel"
-                            helperText="Format: 10 digits without spaces or dashes"
-                            value={phoneNumber}
+                         <TextField id="decription" label="description" variant="outlined" required
+                            value={description}
                             onChange={(event) => {
-                                setPhoneNumber(event.target.value);
-                            }}
-                        />
+                                setDescription(event.target.value);
+                            }} />
+                    
                         <TextField
                             id="landmark"
                             label="Landmark"
