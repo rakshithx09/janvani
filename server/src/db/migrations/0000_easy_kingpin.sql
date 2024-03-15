@@ -10,12 +10,13 @@ CREATE TABLE `Comment` (
 --> statement-breakpoint
 CREATE TABLE `department` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`name` text NOT NULL
+	`name` text NOT NULL,
+	`scope` integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `dept_pin` (
 	`departmentId` integer NOT NULL,
-	`pincode` text,
+	`pincode` text NOT NULL,
 	PRIMARY KEY(`departmentId`, `pincode`),
 	FOREIGN KEY (`departmentId`) REFERENCES `department`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -28,6 +29,7 @@ CREATE TABLE `post` (
 	`complaintType` text NOT NULL,
 	`departmentId` integer NOT NULL,
 	`author_id` integer NOT NULL,
+	`scope` integer DEFAULT 1,
 	`created_at` integer DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	FOREIGN KEY (`departmentId`) REFERENCES `department`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`author_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE no action
@@ -35,9 +37,21 @@ CREATE TABLE `post` (
 --> statement-breakpoint
 CREATE TABLE `user` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`aadhaarNo` text NOT NULL,
+	`dob` text NOT NULL,
+	`gender` text NOT NULL,
 	`name` text NOT NULL,
+	`phone` text NOT NULL,
 	`email` text NOT NULL,
 	`password` text NOT NULL,
+	`building` text,
+	`landmark` text,
+	`street` text,
+	`locality` text,
+	`vtc` text,
+	`subdist` text,
+	`district` text,
+	`state` text,
 	`pincode` text NOT NULL,
 	`joined_on` integer DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
@@ -50,4 +64,5 @@ CREATE TABLE `vote` (
 	FOREIGN KEY (`postId`) REFERENCES `post`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE UNIQUE INDEX `user_aadhaarNo_unique` ON `user` (`aadhaarNo`);--> statement-breakpoint
 CREATE UNIQUE INDEX `user_email_unique` ON `user` (`email`);

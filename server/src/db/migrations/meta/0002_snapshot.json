@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "7c4a31f1-dacb-4279-8d9b-0bf78e10d18f",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "a0fddecf-1e96-4aa3-ab7d-20f9599b1604",
+  "prevId": "fe00dbf4-e1f4-4985-ae93-919e18c20092",
   "tables": {
     "Comment": {
       "name": "Comment",
@@ -98,6 +98,13 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         }
       },
@@ -210,6 +217,13 @@
           "notNull": false,
           "autoincrement": false,
           "default": 1
+        },
+        "status": {
+          "name": "status",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "created_at": {
           "name": "created_at",

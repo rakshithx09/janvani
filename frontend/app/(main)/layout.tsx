@@ -18,7 +18,6 @@ export default function RootLayout({
 }>) {
   return (
     <section className="ml-[12rem] py-[2rem] w-[80%] flex flex-col gap-8">
-
       <Box
         sx={{
           display: "flex",
@@ -50,6 +49,9 @@ export default function RootLayout({
         </Box>
 
         <Box sx={{ display: "flex", gap: "40px" }}>
+          <Box>
+            <link rel="stylesheet" href="" />
+          </Box>
           <Box>
             <Box
               sx={{
