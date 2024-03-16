@@ -1,9 +1,6 @@
 import express from 'express'
-<<<<<<< HEAD
-import { addvote, createPost, getAllPosts, getvotes, updateStatus } from '../controllers/post'
-=======
-import { addvote, createPost, getAllPosts, getPostsBydept, getvotes } from '../controllers/post'
->>>>>>> 7d8df0955ceb0a0fe22af95c01a164aeaa29d73f
+import { addvote, createPost, getAllPosts, getPostsBydept, getvotes, updateStatus } from '../controllers/post'
+
 
 const router = express.Router()
 
