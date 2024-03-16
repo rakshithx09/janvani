@@ -105,7 +105,7 @@ const Issue = ({ post }: { post: Post }) => {
       <CardMedia
         component="img"
         sx={{ width: "50%" }}
-        image="/sampleIssue.jpg"
+        image={post.image}
         alt="Live from space album cover"
       />
       <Box
