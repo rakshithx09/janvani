@@ -72,4 +72,5 @@ Janvani is a revolutionary platform aimed at improving the efficiency, transpare
 - Karthik S Salian (@Karthik-S-Salian)
 - Anirudh Karanth  (@AnirudhKaranth)
 
-#Built for HACKOVERFLOW 2.0
+# Built for HACKOVERFLOW 2.0
+# Built in 36 hours
