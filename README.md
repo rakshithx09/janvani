@@ -61,7 +61,7 @@ Janvani is a revolutionary platform aimed at improving the efficiency, transpare
 
 1. Clone the repository.
 2. Install dependencies using `npm install`.
-3. Configure your MongoDB connection.
+3. Configure your SQLite connection.
 4. Run the application using `npm run dev`.
 5. Access the application through the provided URL.
 
