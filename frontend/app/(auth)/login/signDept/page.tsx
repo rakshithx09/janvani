@@ -1,18 +1,31 @@
-"use client"
+"use client";
 import Logo from "@/components/Logo";
 import React, { FormEvent, useState } from "react";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const router = useRouter();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const validate = async () => {
-
-  }
-  const handleSubmit = async (event:FormEvent) => {
-    event.preventDefault(); 
-    await validate(); 
+    await fetch("http://localhost:4000/department/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ deptId: id, password }),
+    }).then(async (res) => {
+      const data = await res.json();
+      console.log(data);
+      if (!res.ok) {
+        return Promise.reject(data);
+      }
+      router.push("/admin");
+    });
+  };
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    validate();
   };
   return (
     <div
@@ -29,7 +42,7 @@ const LoginForm = () => {
         style={{
           width: "80%",
           margin: "auto",
-          padding: "10px", 
+          padding: "10px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -42,13 +55,12 @@ const LoginForm = () => {
             backgroundColor: "#fafafa",
             borderRadius: "10px",
             textAlign: "center",
-            paddingTop: "50px", 
+            paddingTop: "50px",
             boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
           }}
         >
           <h1 style={{ marginBottom: "40px", fontSize: "2.5em" }}>Sign IN</h1>
           <input
-            
             type="String"
             placeholder="Enter department id"
             style={{
@@ -62,7 +74,7 @@ const LoginForm = () => {
             value={id}
             onChange={(event) => {
               setId(event.target.value);
-            }} 
+            }}
           />
           <p></p>
           <input
@@ -83,6 +95,7 @@ const LoginForm = () => {
           />
           <p></p>
           <button
+            onClick={handleSubmit}
             style={{
               width: "80%",
               maxWidth: "300px",

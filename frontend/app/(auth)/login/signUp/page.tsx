@@ -1,43 +1,42 @@
-"use client"
+"use client";
 import Logo from "@/components/Logo";
 import { useState } from "react";
 
-import { redirect, useRouter } from 'next/navigation'
-
+import { redirect, useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [aadhar, setAadhar] = useState("");
-  const [otp, setOtp] = useState("")
+  const [otp, setOtp] = useState("");
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = async () => {
     await fetch("http://localhost:4000/aadhaar/verfifyUser/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            uId:aadhar,
-            otp
-        })
-    }).then(async (res) => {
-      const data = await res.json();
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uId: aadhar,
+        otp,
+      }),
+    })
+      .then(async (res) => {
+        const data = await res.json();
 
-        alert("sucess")
+        alert("sucess");
         if (!res.ok) {
           const error = data;
 
-            return Promise.reject(data)
-
+          return Promise.reject(data);
         }
-        console.log("hello")
-        router.push('/')
-
-    }).catch((err) => {
-        console.log(err)
-    })
-};
+        console.log("hello");
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div
@@ -71,10 +70,12 @@ const LoginForm = () => {
             boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
           }}
         >
-          <h1 style={{ marginBottom: "40px", fontSize: "2.5em" }}>REGISTER</h1>
+          <h1 style={{ marginBottom: "40px", fontSize: "2.5em" }}>SIGN IN</h1>
           <input
             value={aadhar}
-            onChange={(e) => { setAadhar(e.target.value) }}
+            onChange={(e) => {
+              setAadhar(e.target.value);
+            }}
             type="String"
             placeholder="ENTER YOUR AADHAR NUMBER"
             style={{
@@ -89,9 +90,11 @@ const LoginForm = () => {
           <p></p>
           <input
             type="password"
-            placeholder="Enter the OTP"
+            placeholder="Enter the PASS"
             value={otp}
-            onChange={(e) => { setOtp(e.target.value) }}
+            onChange={(e) => {
+              setOtp(e.target.value);
+            }}
             style={{
               width: "80%",
               maxWidth: "300px",
@@ -103,7 +106,7 @@ const LoginForm = () => {
           />
           <p></p>
           <button
-          onClick={handleSubmit}
+            onClick={handleSubmit}
             style={{
               width: "80%",
               maxWidth: "300px",
@@ -133,9 +136,12 @@ const LoginForm = () => {
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <Logo message="Already have an account? Sign in" linkText="sign in" link="signIn" />
+          <Logo
+            message="Already have an account? Sign in"
+            linkText="Register"
+            link="signIn"
+          />
         </div>
-        
       </div>
     </div>
   );
