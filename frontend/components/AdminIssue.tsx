@@ -1,7 +1,7 @@
-"use client"
-import React from 'react'
-
-const AdminIssue = () => {
+"use client";
+import React from "react";
+import { Post } from "@/app/(main)/page";
+const AdminIssue = ({ post }: { post: Post }) => {
   return (
     <div
       style={{
@@ -22,15 +22,16 @@ const AdminIssue = () => {
         }}
       >
         <img
-          src="/woman.jpg"
+          src={post.image}
           alt="User's Profile"
           style={{ width: "200px", height: "200px", marginRight: "2rem" }}
         />
         <div style={{ flex: 1 }}>
-          <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>Issue</h1>
+          <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>
+            {post.title}
+          </h1>
           <p style={{ fontSize: "1.2rem", marginBottom: "1rem" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-            vestibulum libero quis odio aliquam, quis vehicula lectus vehicula.
+            {post.description}
           </p>
           <div style={{ display: "flex", gap: "1rem" }}>
             <button
@@ -63,7 +64,7 @@ const AdminIssue = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminIssue
+export default AdminIssue;
