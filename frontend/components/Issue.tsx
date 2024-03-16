@@ -24,8 +24,6 @@ const Issue = ({ post }: { post: Post }) => {
   const [isCommentsClicked, setIsCommentsClicked] = useState(false);
   const [comments, setComments] = useState<CommentType[]>();
 
-  
-
   const handleUpVote = async () => {
     const data = {
       postId: post.id,
@@ -38,15 +36,17 @@ const Issue = ({ post }: { post: Post }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res)=>{
-      if (!res.ok) {
-        const error = data;
-        return Promise.reject(error)
-    }
-    alert("upvoted successfully")
-    }).catch((err)=>{
-      console.log(err)
-    });
+    })
+      .then((res) => {
+        if (!res.ok) {
+          const error = data;
+          return Promise.reject(error);
+        }
+        alert("upvoted successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleDownVote = async () => {
@@ -61,15 +61,17 @@ const Issue = ({ post }: { post: Post }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res)=>{
-      if (!res.ok) {
-        const error = data;
-        return Promise.reject(error)
-    }
-    alert("downvoted successfully")
-    }).catch((err)=>{
-      console.log(err)
-    });
+    })
+      .then((res) => {
+        if (!res.ok) {
+          const error = data;
+          return Promise.reject(error);
+        }
+        alert("downvoted successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   useEffect(() => {
     async function test() {
@@ -158,10 +160,7 @@ const Issue = ({ post }: { post: Post }) => {
               >
                 {post?.description}
               </Typography>
-              <Stack direction="row" spacing={1.5}>
-                <Chip label="#tag" color="primary" variant="outlined" />
-                <Chip label="#tag" color="primary" variant="outlined" />
-              </Stack>
+              <Stack direction="row" spacing={1.5}></Stack>
               <Stack direction="row" spacing={1.5}>
                 <img src="/arrowup.svg" alt="arrow" onClick={handleUpVote} />
                 <img
@@ -183,7 +182,7 @@ const Issue = ({ post }: { post: Post }) => {
             </>
           ) : (
             <Comments
-            postId={post.id}
+              postId={post.id}
               comments={comments}
               setIsCommentsClicked={setIsCommentsClicked}
             />
