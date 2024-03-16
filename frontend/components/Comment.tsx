@@ -19,9 +19,6 @@ const Comment = ({ comment }: { comment: CommentType }) => {
           marginBottom: "10px",
         }}
       >
-        <p style={{ marginBottom: "0.2rem", fontSize: "0.9rem" }}>
-          {comment.userId}
-        </p>
         <p style={{ marginBottom: "0", fontSize: "13px" }}>{comment.content}</p>
       </div>
     </div>
